@@ -601,7 +601,7 @@
 
   <div class="about-grid">
     <div class="about-text rev">
-      <p>I'm a <strong>first-year B.Tech CS student</strong> at PSIT Kanpur, deeply passionate about software engineering and building products that users actually love.</p>
+      <p>I'm a <strong>second-year B.Tech CS student</strong> at PSIT Kanpur, deeply passionate about software engineering and building products that users actually love.</p>
       <p>My philosophy is simple: don't just write code; build ecosystems. From seamless frontend experiences to robust backend architectures and AI integrations, I handle the full spectrum of development.</p>
 
       <div class="attr-grid">
@@ -865,7 +865,7 @@
       </button>
     </div>
     <div class="likes-counter-wrapper">
-      <span class="likes-count" id="likes-count">—</span>
+      <span class="likes-count" id="likes-count">0</span>
       <span class="likes-label">Commendations</span>
       <span class="likes-status-msg" id="likes-status-msg"></span>
     </div>
@@ -1066,8 +1066,11 @@ document.querySelectorAll('.rev,.revl,.revr').forEach(el=>revObs.observe(el));
   const downUrl = `https://api.counterapi.dev/v1/${namespace}/${key}/down`;
 
   let isLiked = localStorage.getItem('portfolio_liked') === 'true';
-  let currentCount = 0;
+  let currentCount = isLiked ? 1 : 0;
   let isPending = false;
+
+  // Set initial count immediately in case fetch is slow or blocked
+  likesCountEl.textContent = currentCount;
 
   // Initialize UI state
   if (isLiked) {
