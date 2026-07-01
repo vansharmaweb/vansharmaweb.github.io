@@ -856,7 +856,7 @@
   <h2 class="section-title rev d1" style="text-align: center;">Leave a Heart</h2>
   <p class="section-sub rev d2" style="text-align: center; margin: 0 auto 3rem;">If you enjoyed exploring my quests and arsenal, show some appreciation by leaving a commendation!</p>
 
-  <div class="glass-card support-card rev d3">
+  <div class="glass-card support-card">
     <div class="like-button-container">
       <button class="like-btn" id="like-btn" aria-label="Heart this portfolio">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1087,13 +1087,13 @@ document.querySelectorAll('.rev,.revl,.revr').forEach(el=>revObs.observe(el));
       updateCountUI(currentCount);
     } catch (err) {
       console.error('Error fetching likes:', err);
-      // Fallback: show local count if offline or error
-      likesCountEl.textContent = isLiked ? '1' : '0';
+      updateCountUI(currentCount);
     }
   }
 
   function updateCountUI(count) {
-    likesCountEl.textContent = count;
+    const displayCount = isLiked ? Math.max(count, 1) : count;
+    likesCountEl.textContent = displayCount;
     likesCountEl.classList.add('pulse');
     setTimeout(() => likesCountEl.classList.remove('pulse'), 300);
   }
