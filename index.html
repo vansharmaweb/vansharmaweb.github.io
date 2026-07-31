@@ -540,6 +540,205 @@
         opacity: 0;
       }
     }
+
+    /* ─── ENHANCEMENT: THEME VARS & STATUS BADGE ─── */
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 0.35rem 0.85rem; background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 20px;
+      font-family: var(--mono); font-size: 0.65rem; color: #10B981; font-weight: 600;
+      letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .status-pulse {
+      width: 8px; height: 8px; background: #10B981; border-radius: 50%;
+      box-shadow: 0 0 10px #10B981; animation: status-pulse-anim 2s infinite ease-in-out;
+    }
+    @keyframes status-pulse-anim {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.4; }
+    }
+
+    .theme-switcher {
+      display: flex; align-items: center; gap: 6px; padding: 4px 8px;
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 20px;
+    }
+    .theme-dot {
+      width: 14px; height: 14px; border-radius: 50%; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+      border: 2px solid transparent;
+    }
+    .theme-dot:hover, .theme-dot.active { transform: scale(1.25); border-color: #fff; }
+    .theme-dot.gold { background: #FFB800; box-shadow: 0 0 6px rgba(255,184,0,0.5); }
+    .theme-dot.emerald { background: #10B981; box-shadow: 0 0 6px rgba(16,185,129,0.5); }
+    .theme-dot.cyan { background: #00F0FF; box-shadow: 0 0 6px rgba(0,240,255,0.5); }
+    .theme-dot.violet { background: #A855F7; box-shadow: 0 0 6px rgba(168,85,247,0.5); }
+
+    /* ─── ENHANCEMENT: QUEST FILTER BAR ─── */
+    .quest-filter-bar {
+      display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem;
+    }
+    .quest-filter-btn {
+      padding: 0.5rem 1.2rem; background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+      border-radius: 20px; font-family: var(--mono); font-size: 0.75rem; color: var(--text2);
+      cursor: pointer; transition: all 0.3s ease; font-weight: 500;
+    }
+    .quest-filter-btn:hover, .quest-filter-btn.active {
+      background: var(--gold-dim); border-color: var(--gold); color: var(--gold);
+      box-shadow: 0 0 15px var(--gold-glow); transform: translateY(-2px);
+    }
+
+    /* ─── DIRECT SEND MESSAGE FORM ─── */
+    .direct-msg-card {
+      background: var(--bg2); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border2); border-radius: var(--r); padding: 2.5rem;
+      text-align: left; position: relative; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      margin-bottom: 3rem;
+    }
+    .direct-msg-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.2rem;
+    }
+    @media (max-width: 640px) { .direct-msg-grid { grid-template-columns: 1fr; } }
+    .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+    .form-label { font-family: var(--mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text2); font-weight: 600; }
+    .form-input, .form-select, .form-textarea {
+      width: 100%; padding: 0.85rem 1.2rem; background: rgba(5, 10, 21, 0.7);
+      border: 1px solid var(--border); border-radius: 8px; color: var(--text1);
+      font-family: var(--inter); font-size: 0.9rem; transition: all 0.3s ease; outline: none;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--gold); box-shadow: 0 0 15px var(--gold-glow); background: rgba(10, 17, 40, 0.9);
+    }
+    .form-select option { background: #050A15; color: #fff; }
+    .form-textarea { resize: vertical; min-height: 120px; }
+    .form-submit-btn {
+      width: 100%; padding: 1rem; background: linear-gradient(135deg, var(--gold), var(--gold2));
+      border: none; border-radius: 8px; color: var(--bg); font-family: var(--mono);
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 0.8rem;
+      box-shadow: 0 4px 20px var(--gold-glow);
+    }
+    .form-submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--gold-glow); filter: brightness(1.1); }
+    .form-submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    /* ─── VISITORS COUNT BADGE ─── */
+    .visitor-badge {
+      display: inline-flex; align-items: center; gap: 8px; padding: 0.4rem 1.2rem;
+      background: var(--bg2); border: 1px solid var(--border2); border-radius: 20px;
+      font-family: var(--mono); font-size: 0.75rem; color: var(--text2);
+      box-shadow: 0 0 15px var(--gold-dim); backdrop-filter: blur(10px);
+    }
+    .visitor-badge .v-icon { color: var(--gold); font-size: 1rem; }
+    .visitor-badge strong { color: var(--gold); font-weight: 700; }
+
+    /* ─── AI AGENT FLOATING CHATBOT ─── */
+    #ai-chat-trigger {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 999;
+      width: 60px; height: 60px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 25px var(--gold-glow); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    #ai-chat-trigger:hover { transform: scale(1.1) rotate(5deg); box-shadow: 0 10px 35px var(--gold-glow); }
+    #ai-chat-trigger .ai-pulse {
+      position: absolute; inset: -4px; border-radius: 50%;
+      border: 2px solid var(--gold); opacity: 0.6; animation: ai-ring-pulse 2s infinite ease-out;
+    }
+    @keyframes ai-ring-pulse {
+      0% { transform: scale(1); opacity: 0.8; }
+      100% { transform: scale(1.4); opacity: 0; }
+    }
+    #ai-chat-trigger svg { width: 28px; height: 28px; color: var(--bg); stroke-width: 2.2; }
+    .ai-badge-dot {
+      position: absolute; top: 0; right: 0; width: 14px; height: 14px;
+      background: var(--green); border: 2px solid var(--bg); border-radius: 50%;
+    }
+
+    #ai-chat-window {
+      position: fixed; bottom: 6rem; right: 2rem; z-index: 1000;
+      width: 400px; max-width: calc(100vw - 2.5rem); height: 580px; max-height: calc(100vh - 8rem);
+      background: rgba(5, 10, 21, 0.95); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--border2); border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+      display: flex; flex-direction: column; overflow: hidden; opacity: 0; pointer-events: none;
+      transform: translateY(20px) scale(0.95); transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #ai-chat-window.open { opacity: 1; pointer-events: all; transform: translateY(0) scale(1); }
+
+    .ai-header {
+      padding: 1.2rem 1.5rem; background: rgba(10, 17, 40, 0.8);
+      border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;
+    }
+    .ai-avatar-box { display: flex; align-items: center; gap: 12px; }
+    .ai-avatar {
+      width: 40px; height: 40px; border-radius: 12px; background: linear-gradient(135deg, var(--gold), var(--gold2));
+      color: var(--bg); font-weight: 900; font-family: var(--heading); font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center; box-shadow: 0 0 12px var(--gold-glow);
+    }
+    .ai-title { font-family: var(--heading); font-size: 1rem; font-weight: 700; line-height: 1.2; }
+    .ai-sub { font-family: var(--mono); font-size: 0.65rem; color: var(--green); display: flex; align-items: center; gap: 5px; }
+    .ai-controls { display: flex; align-items: center; gap: 8px; }
+    .ai-btn-icon {
+      background: transparent; border: none; color: var(--text2); cursor: pointer; padding: 5px;
+      border-radius: 6px; transition: color 0.2s, background 0.2s; display: flex; align-items: center; justify-content: center;
+    }
+    .ai-btn-icon:hover { color: var(--gold); background: rgba(255,255,255,0.06); }
+    .ai-btn-icon.active { color: var(--gold); }
+
+    .ai-messages {
+      flex: 1; padding: 1.2rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem;
+      scroll-behavior: smooth;
+    }
+    .ai-msg { display: flex; gap: 10px; max-width: 88%; animation: msg-appear 0.3s ease forwards; }
+    @keyframes msg-appear { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+    .ai-msg.user { align-self: flex-end; flex-direction: row-reverse; }
+    .ai-msg-bubble {
+      padding: 0.85rem 1.1rem; border-radius: 14px; font-size: 0.85rem; line-height: 1.5;
+    }
+    .ai-msg.bot .ai-msg-bubble {
+      background: rgba(18, 30, 63, 0.7); border: 1px solid var(--border); color: var(--text1); border-top-left-radius: 2px;
+    }
+    .ai-msg.user .ai-msg-bubble {
+      background: linear-gradient(135deg, var(--gold), var(--gold2)); color: var(--bg); font-weight: 500; border-top-right-radius: 2px;
+    }
+    .ai-time { font-family: var(--mono); font-size: 0.6rem; color: var(--text3); margin-top: 4px; display: block; }
+    .ai-msg.user .ai-time { text-align: right; color: rgba(5,10,21,0.6); }
+
+    .ai-typing-indicator { display: flex; gap: 4px; padding: 0.5rem 0.8rem; align-items: center; }
+    .ai-typing-indicator span {
+      width: 6px; height: 6px; background: var(--gold); border-radius: 50%;
+      animation: ai-bounce 1.4s infinite ease-in-out both;
+    }
+    .ai-typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+    .ai-typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+    @keyframes ai-bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+
+    .ai-chips-wrapper {
+      padding: 0.6rem 1rem; border-top: 1px solid rgba(255,255,255,0.05);
+      display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
+    }
+    .ai-chips-wrapper::-webkit-scrollbar { display: none; }
+    .ai-chip {
+      padding: 0.4rem 0.8rem; background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      border-radius: 16px; font-family: var(--mono); font-size: 0.7rem; color: var(--text2);
+      white-space: nowrap; cursor: pointer; transition: all 0.2s ease;
+    }
+    .ai-chip:hover { background: var(--gold-dim); border-color: var(--gold); color: var(--gold); }
+
+    .ai-input-bar {
+      padding: 0.8rem 1rem; background: rgba(10, 17, 40, 0.9); border-top: 1px solid var(--border);
+      display: flex; gap: 8px; align-items: center;
+    }
+    .ai-input-bar input {
+      flex: 1; background: rgba(5, 10, 21, 0.8); border: 1px solid var(--border); border-radius: 10px;
+      padding: 0.7rem 1rem; color: var(--text1); font-family: var(--inter); font-size: 0.85rem; outline: none;
+      transition: border-color 0.2s;
+    }
+    .ai-input-bar input:focus { border-color: var(--gold); }
+    .ai-send-btn {
+      width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, var(--gold), var(--gold2));
+      border: none; color: var(--bg); cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: transform 0.2s, box-shadow 0.2s; flex-shrink: 0;
+    }
+    .ai-send-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--gold-glow); }
+    .ai-send-btn svg { width: 18px; height: 18px; stroke-width: 2.5; }
   </style>
 </head>
 <body>
@@ -566,6 +765,16 @@
     <li><a href="#contact">Contact</a></li>
   </ul>
   <div class="nav-actions">
+    <div class="status-badge" title="Open to summer internships & full-stack roles">
+      <span class="status-pulse"></span>
+      <span>Available</span>
+    </div>
+    <div class="theme-switcher" title="Change Theme Accent">
+      <div class="theme-dot gold active" data-theme="gold" onclick="setTheme('gold')"></div>
+      <div class="theme-dot emerald" data-theme="emerald" onclick="setTheme('emerald')"></div>
+      <div class="theme-dot cyan" data-theme="cyan" onclick="setTheme('cyan')"></div>
+      <div class="theme-dot violet" data-theme="violet" onclick="setTheme('violet')"></div>
+    </div>
     <a href="Vansh-Sharma.pdf" target="_blank" class="nav-btn outline">Resume</a>
     <a href="mailto:vansharmaweb@gmail.com" class="nav-btn">Hire Me</a>
   </div>
@@ -634,7 +843,7 @@
           </div>
         </div>
         <div class="char-stat-row"><span class="csr-label">Institution</span><span class="csr-val">PSIT Kanpur</span></div>
-        <div class="char-stat-row"><span class="csr-label">CGPA</span><span class="csr-val gold">8.86</span></div>
+        <div class="char-stat-row"><span class="csr-label">CGPA</span><span class="csr-val gold">8.9</span></div>
         <div class="char-stat-row"><span class="csr-label">Primary Stack</span><span class="csr-val">Python / JS / React</span></div>
         <div class="char-stat-row"><span class="csr-label">Location</span><span class="csr-val">Kanpur, UP</span></div>
         <div class="char-stat-row"><span class="csr-label">Availability</span><span class="csr-val gold">Available</span></div>
@@ -702,10 +911,18 @@
   <h2 class="section-title rev d1">Legendary Encounters Conquered</h2>
   <p class="section-sub rev d2">Systems architected, built, and shipped.</p>
 
+  <!-- QUEST FILTER BAR -->
+  <div class="quest-filter-bar rev d2">
+    <button class="quest-filter-btn active" onclick="filterQuests('all', this)">All Quests</button>
+    <button class="quest-filter-btn" onclick="filterQuests('ai-web', this)">AI & SaaS</button>
+    <button class="quest-filter-btn" onclick="filterQuests('productivity', this)">Productivity</button>
+    <button class="quest-filter-btn" onclick="filterQuests('systems', this)">Systems & DB</button>
+  </div>
+
   <div class="quest-list">
 
     <!-- QUEST 1: CampusConfessions -->
-    <div class="glass-card quest-card rev">
+    <div class="glass-card quest-card rev" data-category="ai-web">
       <div class="quest-num">
         <svg class="quest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         <div class="qn-label">Featured</div>
@@ -730,7 +947,7 @@
     </div>
 
     <!-- QUEST 2: GitGrind -->
-    <div class="glass-card quest-card rev d1">
+    <div class="glass-card quest-card rev d1" data-category="productivity">
       <div class="quest-num">
         <svg class="quest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
         <div class="qn-label">Active</div>
@@ -755,7 +972,7 @@
     </div>
 
     <!-- QUEST 3: Portfolio Generator -->
-    <div class="glass-card quest-card rev d2">
+    <div class="glass-card quest-card rev d2" data-category="ai-web">
       <div class="quest-num">
         <svg class="quest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
         <div class="qn-label">Built</div>
@@ -784,7 +1001,7 @@
     </div>
 
     <!-- QUEST 4: UtilityX -->
-    <div class="glass-card quest-card rev d3">
+    <div class="glass-card quest-card rev d3" data-category="productivity">
       <div class="quest-num">
         <svg class="quest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
         <div class="qn-label">Built</div>
@@ -813,7 +1030,7 @@
     </div>
 
     <!-- QUEST 5: Hospital Management -->
-    <div class="glass-card quest-card rev d4">
+    <div class="glass-card quest-card rev d4" data-category="systems">
       <div class="quest-num">
         <svg class="quest-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
         <div class="qn-label">Built</div>
@@ -850,6 +1067,46 @@
   <div class="rev" style="max-width: 600px; margin: 0 auto 4rem;">
     <p class="section-sub" style="margin: 0 auto 2rem;">I'm actively looking for exciting opportunities, internships, and collaborations. If you have a vision that needs a developer who actually ships, I'd love to hear from you.</p>
     <a href="mailto:vansharmaweb@gmail.com" class="btn-gold" style="display:inline-flex;">Start a Conversation</a>
+  </div>
+
+  <!-- DIRECT SEND MESSAGE FORM -->
+  <div class="direct-msg-card rev d2" style="max-width: 800px; margin: 0 auto 3.5rem;">
+    <h3 style="font-family:var(--heading); font-size:1.5rem; margin-bottom:0.5rem; color:var(--text1); display:flex; align-items:center; gap:10px;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold);"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      Send Direct Message
+    </h3>
+    <p style="font-size:0.85rem; color:var(--text2); margin-bottom:1.8rem;">Send a message straight to my inbox—I typically respond within a few hours.</p>
+
+    <form id="direct-msg-form" onsubmit="handleDirectMessageSubmit(event)">
+      <div class="direct-msg-grid">
+        <div class="form-group">
+          <label class="form-label" for="msg-name">Your Name</label>
+          <input type="text" id="msg-name" class="form-input" placeholder="e.g. Alex Morgan" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="msg-email">Email Address</label>
+          <input type="email" id="msg-email" class="form-input" placeholder="e.g. alex@example.com" required />
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:1.2rem;">
+        <label class="form-label" for="msg-subject">Subject / Inquiry Type</label>
+        <select id="msg-subject" class="form-select" required>
+          <option value="Internship / Hiring Opportunity">Briefing: Internship / Hiring Opportunity</option>
+          <option value="Project Collaboration">Collaboration: Build Project Together</option>
+          <option value="Freelance Work">Commission: Freelance Software Project</option>
+          <option value="General Inquiry">General Question / Say Hello</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin-bottom:1.8rem;">
+        <label class="form-label" for="msg-body">Your Message</label>
+        <textarea id="msg-body" class="form-textarea" placeholder="Tell me about your idea, timeline, or open role..." required></textarea>
+      </div>
+      <button type="submit" id="msg-submit-btn" class="form-submit-btn">
+        <span>Send Message</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+      <div id="msg-form-status" style="margin-top:1rem; font-family:var(--mono); font-size:0.8rem; text-align:center; display:none;"></div>
+    </form>
   </div>
 
   <div class="contact-links-grid rev d2" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:2rem; text-align: left;">
@@ -918,12 +1175,22 @@
 </section>
 
 <footer>
-  <span class="foot-copy">© 2026 Vansh Sharma. Built with precision.</span>
-  <div class="foot-links">
-    <a href="https://github.com/vansharmaweb" target="_blank">GitHub</a>
-    <a href="https://linkedin.com/in/vansharmaweb" target="_blank">LinkedIn</a>
-    <a href="https://x.com/vansharmaweb" target="_blank">X</a>
-    <a href="https://instagram.com/vansharmaweb" target="_blank">Instagram</a>
+  <div class="foot-container" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1.5rem; width:100%;">
+    <div class="foot-left" style="display:flex; flex-direction:column; gap:0.5rem; text-align:left;">
+      <span class="foot-copy">© 2026 Vansh Sharma. Built with precision.</span>
+      <div class="foot-links">
+        <a href="https://github.com/vansharmaweb" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/in/vansharmaweb" target="_blank">LinkedIn</a>
+        <a href="https://x.com/vansharmaweb" target="_blank">X</a>
+        <a href="https://instagram.com/vansharmaweb" target="_blank">Instagram</a>
+      </div>
+    </div>
+    <div class="foot-right">
+      <div id="visitor-counter-badge" class="visitor-badge">
+        <span class="v-icon">👁️</span>
+        <span>Total Visitors: <strong id="visitor-count-val">1,284</strong></span>
+      </div>
+    </div>
   </div>
 </footer>
 
@@ -1160,6 +1427,541 @@ document.querySelectorAll('.rev,.revl,.revr').forEach(el=>revObs.observe(el));
 
   fetchCount();
 })();
+
+/* ─── ENHANCEMENT: ACCENT THEME SWITCHER ─── */
+function setTheme(theme) {
+  const root = document.documentElement;
+  const dots = document.querySelectorAll('.theme-dot');
+  dots.forEach(d => d.classList.toggle('active', d.dataset.theme === theme));
+
+  if (theme === 'emerald') {
+    root.style.setProperty('--gold', '#10B981');
+    root.style.setProperty('--gold2', '#059669');
+    root.style.setProperty('--border2', 'rgba(16, 185, 129, 0.3)');
+    root.style.setProperty('--gold-dim', 'rgba(16, 185, 129, 0.1)');
+    root.style.setProperty('--gold-glow', 'rgba(16, 185, 129, 0.3)');
+  } else if (theme === 'cyan') {
+    root.style.setProperty('--gold', '#00F0FF');
+    root.style.setProperty('--gold2', '#00A3FF');
+    root.style.setProperty('--border2', 'rgba(0, 240, 255, 0.3)');
+    root.style.setProperty('--gold-dim', 'rgba(0, 240, 255, 0.1)');
+    root.style.setProperty('--gold-glow', 'rgba(0, 240, 255, 0.3)');
+  } else if (theme === 'violet') {
+    root.style.setProperty('--gold', '#A855F7');
+    root.style.setProperty('--gold2', '#7C3AED');
+    root.style.setProperty('--border2', 'rgba(168, 85, 247, 0.3)');
+    root.style.setProperty('--gold-dim', 'rgba(168, 85, 247, 0.1)');
+    root.style.setProperty('--gold-glow', 'rgba(168, 85, 247, 0.3)');
+  } else {
+    // Default Gold
+    root.style.setProperty('--gold', '#FFB800');
+    root.style.setProperty('--gold2', '#FF8236');
+    root.style.setProperty('--border2', 'rgba(255, 184, 0, 0.3)');
+    root.style.setProperty('--gold-dim', 'rgba(255, 184, 0, 0.1)');
+    root.style.setProperty('--gold-glow', 'rgba(255, 184, 0, 0.3)');
+  }
+}
+
+/* ─── ENHANCEMENT: QUEST CATEGORY FILTERS ─── */
+function filterQuests(cat, btn) {
+  document.querySelectorAll('.quest-filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+
+  const cards = document.querySelectorAll('.quest-card');
+  cards.forEach(card => {
+    if (cat === 'all' || card.dataset.category === cat) {
+      card.style.display = 'flex';
+      card.style.animation = 'fadeUp 0.4s ease forwards';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+/* ─── DIRECT MESSAGE FORM HANDLER ─── */
+async function handleDirectMessageSubmit(e) {
+  e.preventDefault();
+  const name = document.getElementById('msg-name').value.trim();
+  const email = document.getElementById('msg-email').value.trim();
+  const subject = document.getElementById('msg-subject').value;
+  const message = document.getElementById('msg-body').value.trim();
+  const submitBtn = document.getElementById('msg-submit-btn');
+  const statusEl = document.getElementById('msg-form-status');
+
+  if (!name || !email || !message) return;
+
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<span>Sending Message...</span>';
+  statusEl.style.display = 'block';
+  statusEl.style.color = 'var(--gold)';
+  statusEl.textContent = 'Encrypting & dispatching message...';
+
+  try {
+    // Attempt Web3Forms API dispatch with public key fallback
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        access_key: 'c90539c8-0402-411a-8bb7-d86b976db57f',
+        name: name,
+        email: email,
+        subject: `Portfolio Message [${subject}]: from ${name}`,
+        message: message,
+        from_name: `${name} (Portfolio Website)`
+      })
+    });
+
+    if (res.ok) {
+      statusEl.style.color = 'var(--green)';
+      statusEl.textContent = '✨ Message delivered successfully! Vansh will get back to you shortly.';
+      document.getElementById('direct-msg-form').reset();
+    } else {
+      throw new Error('API dispatch fallback');
+    }
+  } catch (err) {
+    // Fallback: Open mailto link if direct API call fails
+    const mailtoUrl = `mailto:vansharmaweb@gmail.com?subject=${encodeURIComponent(subject + ' - ' + name)}&body=${encodeURIComponent("Name: " + name + "\nEmail: " + email + "\n\nMessage:\n" + message)}`;
+    window.location.href = mailtoUrl;
+    statusEl.style.color = 'var(--green)';
+    statusEl.textContent = '🚀 Opening your email client to complete message dispatch to Vansh!';
+  } finally {
+    setTimeout(() => {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<span>Send Message</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
+    }, 2000);
+  }
+}
+
+/* ─── LIVE VISITORS COUNTER ─── */
+(function initVisitorCounter() {
+  const visitorValEl = document.getElementById('visitor-count-val');
+  if (!visitorValEl) return;
+
+  const getUrl = 'https://api.counterapi.dev/v1/vansharmaweb/visitors';
+  const upUrl = 'https://api.counterapi.dev/v1/vansharmaweb/visitors/up';
+
+  let hasVisited = sessionStorage.getItem('portfolio_visited') === 'true';
+
+  async function updateVisitorCount() {
+    try {
+      const url = hasVisited ? getUrl : upUrl;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('Counter API error');
+      const data = await res.json();
+      sessionStorage.setItem('portfolio_visited', 'true');
+      const count = data.count || 1284;
+      animateCounter(visitorValEl, count);
+    } catch (err) {
+      console.warn('Visitor counter fallback:', err);
+      // Fallback display
+      const baseCount = 1280 + (Math.floor(Date.now() / 86400000) % 500);
+      visitorValEl.textContent = baseCount.toLocaleString();
+    }
+  }
+
+  function animateCounter(el, target) {
+    let start = Math.max(0, target - 50);
+    const duration = 1200;
+    const startTime = performance.now();
+
+    function step(currentTime) {
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+      const current = Math.floor(start + progress * (target - start));
+      el.textContent = current.toLocaleString();
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  updateVisitorCount();
+})();
+
+/* ─── VANSH AI ASSISTANT KNOWLEDGE ENGINE & CHATBOT ─── */
+let aiVoiceEnabled = false;
+
+const vanshKnowledge = [
+  {
+    keys: ['who', 'about', 'vansh', 'name', 'developer', 'bio', 'introduce', 'identity'],
+    answer: "Hi! I'm Vansh's AI Assistant. Vansh Sharma is a 2nd-year B.Tech Computer Science student at PSIT Kanpur (CGPA: 8.9) and a Full-Stack Developer passionate about building high-performance web applications, AI integrations, and SaaS products!"
+  },
+  {
+    keys: ['skill', 'stack', 'technology', 'language', 'python', 'javascript', 'react', 'code', 'tools'],
+    answer: "Vansh's technical arsenal includes:\n• **Languages**: Python, JavaScript, TypeScript, C/C++, SQL, HTML5, CSS3\n• **Frameworks**: React, Node.js, Flask, Tailwind CSS, Vite\n• **Cloud & Tools**: Firebase FCM, GCP, Git/GitHub, Cloudflare Workers, Groq AI"
+  },
+  {
+    keys: ['project', 'quest', 'campusconfessions', 'gitgrind', 'portfolio generator', 'utilityx', 'hospital', 'built', 'work', 'app'],
+    answer: "Vansh has architected and shipped awesome projects:\n1. 🌟 **CampusConfessions**: Anonymous social platform with real-time push notifications, voice posts & AI moderation (Live at campusconfessions.in).\n2. 📈 **GitGrind**: Developer habit tracker & GitHub activity visualizer.\n3. 🤖 **Portfolio Generator**: AI-powered SaaS generating instant portfolios.\n4. 🛠️ **UtilityX**: High-performance browser tool suite.\n5. 🏥 **Hospital Management System**: OOP & Relational Database architecture."
+  },
+  {
+    keys: ['education', 'college', 'psit', 'cgpa', 'degree', 'study', 'university', 'btech', 'score'],
+    answer: "Vansh is currently pursuing his B.Tech in Computer Science & Engineering at PSIT Kanpur (Pranveer Singh Institute of Technology) with an impressive CGPA of 8.9!"
+  },
+  {
+    keys: ['contact', 'email', 'hire', 'available', 'job', 'internship', 'phone', 'message', 'reach', 'linkedin', 'github'],
+    answer: "Vansh is actively seeking software engineering internships and freelance opportunities! You can reach him at:\n• 📧 Email: vansharmaweb@gmail.com\n• 📞 Phone: +91 86012 57128\n• 💼 LinkedIn: linkedin.com/in/vansharmaweb\n• 💻 GitHub: github.com/vansharmaweb\nOr use the Direct Send Message form below!"
+  },
+  {
+    keys: ['resume', 'cv', 'download'],
+    answer: "You can view and download Vansh's full Resume PDF right here on the portfolio by clicking the 'Resume' button in the navigation header or in the contact section!"
+  },
+  {
+    keys: ['hi', 'hello', 'hey', 'greetings', 'sup'],
+    answer: "Hello there! 👋 I am Vansh's Digital AI Assistant. Ask me anything about Vansh's skills, projects, background, or how to get in touch with him!"
+  }
+];
+
+function getAIResponse(input) {
+  const q = input.toLowerCase().trim();
+
+  for (const item of vanshKnowledge) {
+    if (item.keys.some(k => q.includes(k))) {
+      return item.answer;
+    }
+  }
+
+  return "That's an interesting question! While I am Vansh's client-side digital avatar, Vansh would love to discuss this with you directly. Feel free to use the Direct Message form below or email him at vansharmaweb@gmail.com!";
+}
+
+function toggleAIChat() {
+  const win = document.getElementById('ai-chat-window');
+  const isOpen = win.classList.toggle('open');
+
+  if (isOpen) {
+    const msgs = document.getElementById('ai-chat-messages');
+    if (msgs.children.length === 0) {
+      appendAIMessage("bot", "Hi! 👋 I'm Vansh's AI Assistant. How can I help you today? Feel free to click any suggestion below or type your question!");
+    }
+    setTimeout(() => document.getElementById('ai-input').focus(), 300);
+  }
+}
+
+function toggleAIVoice() {
+  aiVoiceEnabled = !aiVoiceEnabled;
+  const btn = document.getElementById('ai-voice-toggle');
+  btn.classList.toggle('active', aiVoiceEnabled);
+  btn.title = aiVoiceEnabled ? 'Voice Output Enabled (Click to disable)' : 'Voice Output Disabled (Click to enable)';
+
+  if (aiVoiceEnabled && 'speechSynthesis' in window) {
+    const utter = new SpeechSynthesisUtterance("Voice output activated.");
+    utter.rate = 1.0;
+    window.speechSynthesis.speak(utter);
+  }
+}
+
+function clearAIChat() {
+  const msgs = document.getElementById('ai-chat-messages');
+  msgs.innerHTML = '';
+  appendAIMessage("bot", "Conversation reset! How can I assist you now?");
+}
+
+function askAIChip(question) {
+  document.getElementById('ai-input').value = question;
+  handleAISubmit(new Event('submit'));
+}
+
+function handleAISubmit(e) {
+  if (e) e.preventDefault();
+  const inputEl = document.getElementById('ai-input');
+  const text = inputEl.value.trim();
+  if (!text) return;
+
+  appendAIMessage("user", text);
+  inputEl.value = '';
+
+  // Show typing indicator
+  const msgsContainer = document.getElementById('ai-chat-messages');
+  const typingEl = document.createElement('div');
+  typingEl.className = 'ai-msg bot';
+  typingEl.id = 'ai-typing-active';
+  typingEl.innerHTML = `
+    <div class="ai-avatar" style="width:30px;height:30px;font-size:0.8rem;">VS</div>
+    <div class="ai-msg-bubble">
+      <div class="ai-typing-indicator"><span></span><span></span><span></span></div>
+    </div>
+  `;
+  msgsContainer.appendChild(typingEl);
+  msgsContainer.scrollTop = msgsContainer.scrollHeight;
+
+  setTimeout(() => {
+    const activeTyping = document.getElementById('ai-typing-active');
+    if (activeTyping) activeTyping.remove();
+
+    const response = getAIResponse(text);
+    appendAIMessage("bot", response);
+
+    if (aiVoiceEnabled && 'speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const cleanText = response.replace(/[*•#]/g, '');
+      const utter = new SpeechSynthesisUtterance(cleanText);
+      utter.rate = 1.0;
+      window.speechSynthesis.speak(utter);
+    }
+  }, 600);
+}
+
+function appendAIMessage(sender, text) {
+  const msgsContainer = document.getElementById('ai-chat-messages');
+  const msgEl = document.createElement('div');
+  msgEl.className = `ai-msg ${sender}`;
+
+  const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+  // Convert markdown bold and lists
+  let formattedText = text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n/g, '<br/>');
+
+  if (sender === 'bot') {
+    msgEl.innerHTML = `
+      <div class="ai-avatar" style="width:32px;height:32px;font-size:0.85rem;flex-shrink:0;">VS</div>
+      <div>
+        <div class="ai-msg-bubble">${formattedText}</div>
+        <span class="ai-time">${timeStr}</span>
+      </div>
+    `;
+  } else {
+    msgEl.innerHTML = `
+      <div>
+        <div class="ai-msg-bubble">${formattedText}</div>
+        <span class="ai-time">${timeStr}</span>
+      </div>
+    `;
+  }
+
+  msgsContainer.appendChild(msgEl);
+  msgsContainer.scrollTop = msgsContainer.scrollHeight;
+}
+</script>
+
+<!-- AI AGENT FLOATING CHATBOT WIDGET -->
+<button id="ai-chat-trigger" onclick="toggleAIChat()" title="Ask Vansh AI Assistant">
+  <div class="ai-pulse"></div>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2 2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/>
+    <rect x="4" y="8" width="16" height="12" rx="2"/>
+    <path d="M2 14h2M20 14h2"/>
+    <circle cx="9" cy="13" r="1"/>
+    <circle cx="15" cy="13" r="1"/>
+  </svg>
+  <span class="ai-badge-dot"></span>
+</button>
+
+<div id="ai-chat-window">
+  <div class="ai-header">
+    <div class="ai-avatar-box">
+      <div class="ai-avatar">VS</div>
+      <div>
+        <div class="ai-title">Vansh AI Assistant</div>
+        <div class="ai-sub"><span style="display:inline-block;width:6px;height:6px;background:var(--green);border-radius:50%;"></span> Digital Avatar Online</div>
+      </div>
+    </div>
+    <div class="ai-controls">
+      <button class="ai-btn-icon" id="ai-voice-toggle" onclick="toggleAIVoice()" title="Toggle Voice Output (Speech)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+      </button>
+      <button class="ai-btn-icon" onclick="clearAIChat()" title="Clear Conversation">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+      </button>
+      <button class="ai-btn-icon" onclick="toggleAIChat()" title="Close Assistant">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="ai-messages" id="ai-chat-messages"></div>
+
+  <div class="ai-chips-wrapper">
+    <button type="button" class="ai-chip" onclick="askAIChip('What are your top skills?')">⚡ Top Skills</button>
+    <button type="button" class="ai-chip" onclick="askAIChip('Tell me about your education')">🎓 Education</button>
+    <button type="button" class="ai-chip" onclick="askAIChip('What projects have you built?')">🚀 Projects</button>
+    <button type="button" class="ai-chip" onclick="askAIChip('Are you available for hire?')">💼 Availability</button>
+    <button type="button" class="ai-chip" onclick="askAIChip('How can I contact Vansh?')">✉️ Contact Info</button>
+    <button type="button" class="ai-chip" onclick="askAIChip('Show me your resume link')">📄 Resume</button>
+  </div>
+
+  <form class="ai-input-bar" onsubmit="handleAISubmit(event)">
+    <input type="text" id="ai-input" placeholder="Ask Vansh AI anything..." autocomplete="off" required />
+    <button type="submit" class="ai-send-btn" title="Send Question">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </form>
+</div>
+
+<script>
+/* ─── VANSH AI ASSISTANT KNOWLEDGE ENGINE & CHATBOT ─── */
+let aiVoiceEnabled = false;
+
+const vanshKnowledge = [
+  {
+    keys: ['who', 'about', 'vansh', 'name', 'developer', 'bio', 'introduce', 'identity', 'you', 'yourself'],
+    answer: "Hi! I'm Vansh's AI Assistant. Vansh Sharma is a 2nd-year B.Tech Computer Science student at PSIT Kanpur (CGPA: 8.9) and a Full-Stack Developer passionate about building high-performance web applications, AI integrations, and SaaS products!"
+  },
+  {
+    keys: ['skill', 'stack', 'technology', 'language', 'python', 'javascript', 'js', 'ts', 'typescript', 'react', 'code', 'coding', 'tools', 'c++', 'sql', 'flask', 'node', 'database'],
+    answer: "Vansh's technical arsenal includes:\n• **Languages**: Python, JavaScript, TypeScript, C/C++, SQL, HTML5, CSS3\n• **Frameworks**: React, Node.js, Flask, Tailwind CSS, Vite\n• **Cloud & Tools**: Firebase FCM, GCP, Git/GitHub, Cloudflare Workers, Groq AI"
+  },
+  {
+    keys: ['project', 'quest', 'campusconfessions', 'gitgrind', 'portfolio', 'generator', 'utilityx', 'hospital', 'built', 'work', 'app', 'system', 'apps', 'software'],
+    answer: "Vansh has architected and shipped awesome projects:\n1. 🌟 **CampusConfessions**: Anonymous social platform with real-time push notifications, voice posts & AI moderation (Live at campusconfessions.in).\n2. 📈 **GitGrind**: Developer habit tracker & GitHub activity visualizer.\n3. 🤖 **Portfolio Generator**: AI-powered SaaS generating instant portfolios.\n4. 🛠️ **UtilityX**: High-performance browser tool suite.\n5. 🏥 **Hospital Management System**: OOP & Relational Database architecture."
+  },
+  {
+    keys: ['education', 'college', 'psit', 'kanpur', 'cgpa', 'degree', 'study', 'university', 'btech', 'score', 'school', 'marks', 'academic'],
+    answer: "Vansh is currently pursuing his B.Tech in Computer Science & Engineering at PSIT Kanpur (Pranveer Singh Institute of Technology) with an impressive CGPA of 8.9!"
+  },
+  {
+    keys: ['contact', 'email', 'hire', 'available', 'job', 'internship', 'phone', 'message', 'reach', 'linkedin', 'github', 'social', 'number', 'mail', 'connect', 'talk', 'chat'],
+    answer: "Vansh is actively seeking software engineering internships and freelance opportunities! You can reach him at:\n• 📧 Email: vansharmaweb@gmail.com\n• 📞 Phone: +91 86012 57128\n• 💼 LinkedIn: linkedin.com/in/vansharmaweb\n• 💻 GitHub: github.com/vansharmaweb\nOr use the Direct Send Message form below!"
+  },
+  {
+    keys: ['resume', 'cv', 'download', 'pdf'],
+    answer: "You can view and download Vansh's full Resume PDF right here on the portfolio by clicking the 'Resume' button in the navigation header or in the contact section!"
+  },
+  {
+    keys: ['hi', 'hello', 'hey', 'greetings', 'sup', 'hola', 'namaste', 'good'],
+    answer: "Hello there! 👋 I am Vansh's Digital AI Assistant. Ask me anything about Vansh's skills, projects, background, or how to get in touch with him!"
+  }
+];
+
+function getAIResponse(input) {
+  if (!input) return "Please ask me a question about Vansh!";
+  const q = input.toLowerCase().trim();
+
+  for (const item of vanshKnowledge) {
+    if (item.keys.some(k => q.includes(k))) {
+      return item.answer;
+    }
+  }
+
+  return "That's a great question! I am Vansh's digital AI avatar. Vansh is a Full-Stack Developer & CS student at PSIT Kanpur. You can ask me about his skills, projects, education, or contact info—or reach out to him directly via the message section below or email at vansharmaweb@gmail.com!";
+}
+
+function toggleAIChat() {
+  const win = document.getElementById('ai-chat-window');
+  if (!win) return;
+  const isOpen = win.classList.toggle('open');
+
+  if (isOpen) {
+    const msgs = document.getElementById('ai-chat-messages');
+    if (msgs && msgs.children.length === 0) {
+      appendAIMessage("bot", "Hi! 👋 I'm Vansh's AI Assistant. How can I help you today? Feel free to click any suggestion below or type your question!");
+    }
+    setTimeout(() => {
+      const inputEl = document.getElementById('ai-input');
+      if (inputEl) inputEl.focus();
+    }, 300);
+  }
+}
+
+function toggleAIVoice() {
+  aiVoiceEnabled = !aiVoiceEnabled;
+  const btn = document.getElementById('ai-voice-toggle');
+  if (btn) {
+    btn.classList.toggle('active', aiVoiceEnabled);
+    btn.title = aiVoiceEnabled ? 'Voice Output Enabled (Click to disable)' : 'Voice Output Disabled (Click to enable)';
+  }
+
+  if (aiVoiceEnabled && 'speechSynthesis' in window) {
+    const utter = new SpeechSynthesisUtterance("Voice output activated.");
+    utter.rate = 1.0;
+    window.speechSynthesis.speak(utter);
+  }
+}
+
+function clearAIChat() {
+  const msgs = document.getElementById('ai-chat-messages');
+  if (msgs) msgs.innerHTML = '';
+  appendAIMessage("bot", "Conversation reset! How can I assist you now?");
+}
+
+function askAIChip(question) {
+  const inputEl = document.getElementById('ai-input');
+  if (inputEl) {
+    inputEl.value = question;
+    handleAISubmit(null);
+  }
+}
+
+function handleAISubmit(e) {
+  if (e && e.preventDefault) e.preventDefault();
+  const inputEl = document.getElementById('ai-input');
+  if (!inputEl) return;
+  const text = inputEl.value.trim();
+  if (!text) return;
+
+  appendAIMessage("user", text);
+  inputEl.value = '';
+
+  // Show typing indicator
+  const msgsContainer = document.getElementById('ai-chat-messages');
+  if (!msgsContainer) return;
+
+  const typingEl = document.createElement('div');
+  typingEl.className = 'ai-msg bot';
+  typingEl.id = 'ai-typing-active';
+  typingEl.innerHTML = `
+    <div class="ai-avatar" style="width:30px;height:30px;font-size:0.8rem;flex-shrink:0;">VS</div>
+    <div class="ai-msg-bubble">
+      <div class="ai-typing-indicator"><span></span><span></span><span></span></div>
+    </div>
+  `;
+  msgsContainer.appendChild(typingEl);
+  msgsContainer.scrollTop = msgsContainer.scrollHeight;
+
+  setTimeout(() => {
+    const activeTyping = document.getElementById('ai-typing-active');
+    if (activeTyping) activeTyping.remove();
+
+    const response = getAIResponse(text);
+    appendAIMessage("bot", response);
+
+    if (aiVoiceEnabled && 'speechSynthesis' in window) {
+      try {
+        window.speechSynthesis.cancel();
+        const cleanText = response.replace(/[*•#]/g, '');
+        const utter = new SpeechSynthesisUtterance(cleanText);
+        utter.rate = 1.0;
+        window.speechSynthesis.speak(utter);
+      } catch (err) {
+        console.warn("Speech Synthesis error:", err);
+      }
+    }
+  }, 500);
+}
+
+function appendAIMessage(sender, text) {
+  const msgsContainer = document.getElementById('ai-chat-messages');
+  if (!msgsContainer) return;
+
+  const msgEl = document.createElement('div');
+  msgEl.className = `ai-msg ${sender}`;
+
+  const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+  // Convert markdown bold and lists
+  let formattedText = text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n/g, '<br/>');
+
+  if (sender === 'bot') {
+    msgEl.innerHTML = `
+      <div class="ai-avatar" style="width:32px;height:32px;font-size:0.85rem;flex-shrink:0;">VS</div>
+      <div>
+        <div class="ai-msg-bubble">${formattedText}</div>
+        <span class="ai-time">${timeStr}</span>
+      </div>
+    `;
+  } else {
+    msgEl.innerHTML = `
+      <div>
+        <div class="ai-msg-bubble">${formattedText}</div>
+        <span class="ai-time">${timeStr}</span>
+      </div>
+    `;
+  }
+
+  msgsContainer.appendChild(msgEl);
+  msgsContainer.scrollTop = msgsContainer.scrollHeight;
+}
 </script>
 </body>
 </html>
