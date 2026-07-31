@@ -1602,9 +1602,6 @@ async function handleDirectMessageSubmit(e) {
       </div>
     </div>
     <div class="ai-controls">
-      <button class="ai-btn-icon" id="ai-key-toggle" onclick="toggleAIKeyPanel()" title="Configure Groq API Key">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-      </button>
       <button class="ai-btn-icon" id="ai-voice-toggle" onclick="toggleAIVoice()" title="Toggle Voice Output (Speech)">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
       </button>
@@ -1615,15 +1612,6 @@ async function handleDirectMessageSubmit(e) {
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
-  </div>
-
-  <div id="ai-key-panel" style="display:none; padding:0.8rem 1rem; background:rgba(10,17,40,0.95); border-bottom:1px solid var(--border); transition:all 0.3s ease;">
-    <div style="font-family:var(--mono); font-size:0.7rem; color:var(--gold); margin-bottom:0.4rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em;">Groq API Key Configuration</div>
-    <div style="display:flex; gap:6px;">
-      <input type="password" id="groq-key-input" placeholder="Paste Groq Key (gsk_...)" style="flex:1; background:rgba(5,10,21,0.8); border:1px solid var(--border); border-radius:6px; padding:0.4rem 0.8rem; color:#fff; font-family:var(--mono); font-size:0.75rem; outline:none;" />
-      <button type="button" onclick="saveGroqKey()" style="padding:0.4rem 0.8rem; background:var(--gold); color:var(--bg); border:none; border-radius:6px; font-family:var(--mono); font-size:0.7rem; font-weight:700; cursor:pointer;">Save Key</button>
-    </div>
-    <div id="groq-key-status" style="font-family:var(--mono); font-size:0.65rem; color:var(--text2); margin-top:0.4rem;">Key is read from env.js or browser local storage</div>
   </div>
 
   <div class="ai-messages" id="ai-chat-messages"></div>
@@ -1655,73 +1643,36 @@ Answer questions on Vansh's behalf in a warm, intelligent, enthusiastic develope
 
 ABOUT VANSH SHARMA:
 - Full Name: Vansh Sharma
-- Status: 2nd-Year B.Tech Computer Science & Engineering student at PSIT Kanpur (Pranveer Singh Institute of Technology).
-- Academic Record: Exceptional CGPA of 8.86 / 10.
+- Status: 2nd-Year B.Tech Computer Science & Engineering student at PSIT Kanpur (CGPA: 8.86 / 10).
 - Role & Passion: Full-Stack Developer, Software Engineer, SaaS Innovator building production software.
-- Primary Stack: Python, JavaScript (ES6+), TypeScript, React, Node.js, Flask, Tailwind CSS, Vite, SQL, MySQL, Firebase (FCM, Auth), GCP, Cloudflare Workers, Groq AI.
+- Primary Stack: Python, JavaScript, TypeScript, React, Node.js, Flask, Tailwind CSS, SQL, MySQL, Firebase, GCP, Groq AI.
 - Featured Projects:
-  1. CampusConfessions (Live at campusconfessions.in): Anonymous social app with real-time push notifications, AI moderation, voice posts, polls, admin dashboard. Built with Flask, MySQL, Firebase FCM.
-  2. GitGrind (Active / In Progress): Developer habit tracker & streak visualizer ("Duolingo for coding consistency").
-  3. Portfolio Generator (Completed SaaS): Generates styled, ready-to-deploy portfolios in seconds.
-  4. UtilityX (Completed): In-browser developer utility suite.
+  1. CampusConfessions (Live at https://campusconfessions.in): Anonymous social app with push notifications, AI moderation, voice posts & polls.
+  2. GitGrind: Developer habit tracker & GitHub activity visualizer.
+  3. Portfolio Generator: AI-powered SaaS generating instant portfolios.
+  4. UtilityX: Browser developer utility suite.
   5. Hospital Management System: OOP & Relational Database architecture.
-- Availability: Actively seeking Summer 2026 Software Engineering Internships, Full-Stack roles, open-source projects, and freelance work.
-- Contact: Email (vansharmaweb@gmail.com), Phone (+91 86012 57128), LinkedIn (linkedin.com/in/vansharmaweb), GitHub (github.com/vansharmaweb).
+- Availability: Open to Summer 2026 internships, full-stack engineer roles, and freelance work.
+- Contact: Email (vansharmaweb@gmail.com), Phone (+91 86012 57128), LinkedIn (https://linkedin.com/in/vansharmaweb), GitHub (https://github.com/vansharmaweb).
 
-RESPONSE RULES:
-- Always answer naturally as Vansh's personal AI avatar ("I'm Vansh's AI assistant...").
-- Keep answers informative, concise, and structured with bold text or bullets where helpful.
-- If visitors ask how to hire or get in touch, direct them to the Direct Send Message form on the site or email vansharmaweb@gmail.com.`;
+STRICT RESPONSE RULES:
+- KEEP REPLIES SHORT & CONCISE (1 to 3 short sentences maximum!).
+- Avoid long paragraphs or wordy explanations.
+- Be direct, crisp, friendly, and energetic.
+- If asked about contacting Vansh, give email (vansharmaweb@gmail.com) or tell them to use the Direct Send Message form below.`;
 
 function getGroqApiKey() {
   if (window.GROQ_API_KEY && window.GROQ_API_KEY.startsWith("gsk_") && window.GROQ_API_KEY !== "gsk_your_groq_api_key_here") {
     return window.GROQ_API_KEY;
   }
-  const localKey = localStorage.getItem('groq_api_key');
-  if (localKey && localKey.startsWith("gsk_")) {
-    return localKey;
-  }
   return null;
-}
-
-function toggleAIKeyPanel() {
-  const panel = document.getElementById('ai-key-panel');
-  if (!panel) return;
-  const isHidden = panel.style.display === 'none';
-  panel.style.display = isHidden ? 'block' : 'none';
-
-  if (isHidden) {
-    const input = document.getElementById('groq-key-input');
-    const existingKey = getGroqApiKey();
-    if (existingKey && input) {
-      input.value = existingKey;
-    }
-  }
-}
-
-function saveGroqKey() {
-  const input = document.getElementById('groq-key-input');
-  const status = document.getElementById('groq-key-status');
-  if (!input) return;
-  const key = input.value.trim();
-
-  if (key.startsWith("gsk_")) {
-    localStorage.setItem('groq_api_key', key);
-    window.GROQ_API_KEY = key;
-    status.style.color = 'var(--green)';
-    status.textContent = '✨ Groq API Key saved successfully!';
-    setTimeout(() => toggleAIKeyPanel(), 1500);
-  } else {
-    status.style.color = 'var(--red)';
-    status.textContent = '⚠️ Please enter a valid Groq key starting with gsk_';
-  }
 }
 
 async function fetchGroqAIResponse(userText) {
   const apiKey = getGroqApiKey();
 
   if (!apiKey) {
-    return "🔑 **Groq API Key Required**\n\nTo power my AI brain with **Groq LLaMA-3.3**, please set your Groq API Key:\n\n1. Open `env.js` and paste your key (`window.GROQ_API_KEY = 'gsk_...';`), OR\n2. Click the ⚙️ Key icon in the chat header above and paste your `gsk_...` key!";
+    return "⚠️ Groq API Key missing in `env.js`. Please check your configuration.";
   }
 
   aiConversationHistory.push({ role: 'user', content: userText });
@@ -1736,8 +1687,8 @@ async function fetchGroqAIResponse(userText) {
       { role: "system", content: systemPromptToUse },
       ...recentHistory
     ],
-    temperature: 0.7,
-    max_tokens: 600
+    temperature: 0.6,
+    max_tokens: 250
   };
 
   try {
@@ -1778,7 +1729,7 @@ async function fetchGroqAIResponse(userText) {
     return reply;
   } catch (err) {
     console.error("Groq API Error:", err);
-    return `⚠️ **Groq API Error**: ${err.message || 'Could not connect to Groq'}. Click the ⚙️ icon above to verify your Groq API key!`;
+    return `⚠️ **Groq API Error**: ${err.message || 'Could not connect to Groq'}. Please check your key in \`env.js\`.`;
   }
 }
 
