@@ -1727,10 +1727,13 @@ async function fetchGroqAIResponse(userText) {
   aiConversationHistory.push({ role: 'user', content: userText });
   const recentHistory = aiConversationHistory.slice(-10);
 
+  const modelToUse = window.AI_MODEL || "llama-3.3-70b-versatile";
+  const systemPromptToUse = window.AI_SYSTEM_PROMPT || VANSH_SYSTEM_PROMPT;
+
   const payload = {
-    model: "llama-3.3-70b-versatile",
+    model: modelToUse,
     messages: [
-      { role: "system", content: VANSH_SYSTEM_PROMPT },
+      { role: "system", content: systemPromptToUse },
       ...recentHistory
     ],
     temperature: 0.7,
