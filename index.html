@@ -1888,44 +1888,28 @@ function handleAISubmit(e) {
   const text = inputEl.value.trim();
   if (!text) return;
 
+  // 1. Append user message
   appendAIMessage("user", text);
   inputEl.value = '';
 
-  // Show typing indicator
-  const msgsContainer = document.getElementById('ai-chat-messages');
-  if (!msgsContainer) return;
+  // 2. Generate response immediately
+  const response = getAIResponse(text);
 
-  const typingEl = document.createElement('div');
-  typingEl.className = 'ai-msg bot';
-  typingEl.id = 'ai-typing-active';
-  typingEl.innerHTML = `
-    <div class="ai-avatar" style="width:30px;height:30px;font-size:0.8rem;flex-shrink:0;">VS</div>
-    <div class="ai-msg-bubble">
-      <div class="ai-typing-indicator"><span></span><span></span><span></span></div>
-    </div>
-  `;
-  msgsContainer.appendChild(typingEl);
-  msgsContainer.scrollTop = msgsContainer.scrollHeight;
+  // 3. Append bot message immediately
+  appendAIMessage("bot", response);
 
-  setTimeout(() => {
-    const activeTyping = document.getElementById('ai-typing-active');
-    if (activeTyping) activeTyping.remove();
-
-    const response = getAIResponse(text);
-    appendAIMessage("bot", response);
-
-    if (aiVoiceEnabled && 'speechSynthesis' in window) {
-      try {
-        window.speechSynthesis.cancel();
-        const cleanText = response.replace(/[*•#]/g, '');
-        const utter = new SpeechSynthesisUtterance(cleanText);
-        utter.rate = 1.0;
-        window.speechSynthesis.speak(utter);
-      } catch (err) {
-        console.warn("Speech Synthesis error:", err);
-      }
+  // 4. Voice output if enabled
+  if (aiVoiceEnabled && 'speechSynthesis' in window) {
+    try {
+      window.speechSynthesis.cancel();
+      const cleanText = response.replace(/[*•#]/g, '');
+      const utter = new SpeechSynthesisUtterance(cleanText);
+      utter.rate = 1.0;
+      window.speechSynthesis.speak(utter);
+    } catch (err) {
+      console.warn("Speech Synthesis warning:", err);
     }
-  }, 500);
+  }
 }
 
 function appendAIMessage(sender, text) {
@@ -1937,7 +1921,7 @@ function appendAIMessage(sender, text) {
 
   const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-  // Convert markdown bold and lists
+  // Convert markdown bold and linebreaks
   let formattedText = text
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
     .replace(/\n/g, '<br/>');
@@ -1945,14 +1929,14 @@ function appendAIMessage(sender, text) {
   if (sender === 'bot') {
     msgEl.innerHTML = `
       <div class="ai-avatar" style="width:32px;height:32px;font-size:0.85rem;flex-shrink:0;">VS</div>
-      <div>
+      <div style="max-width:calc(100% - 42px);">
         <div class="ai-msg-bubble">${formattedText}</div>
         <span class="ai-time">${timeStr}</span>
       </div>
     `;
   } else {
     msgEl.innerHTML = `
-      <div>
+      <div style="max-width:100%;">
         <div class="ai-msg-bubble">${formattedText}</div>
         <span class="ai-time">${timeStr}</span>
       </div>
