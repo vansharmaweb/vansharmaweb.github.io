@@ -1,0 +1,6 @@
+# Environment & Secret Files
+.env
+env.js
+config.js
+*.env
+*.local

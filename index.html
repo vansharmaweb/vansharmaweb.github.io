@@ -24,6 +24,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <!-- Local Environment Config (GitIgnored) -->
+  <script src="env.js" onerror="console.log('env.js not found, using localStorage or UI key entry');"></script>
 
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -1575,162 +1577,6 @@ async function handleDirectMessageSubmit(e) {
 
   updateVisitorCount();
 })();
-
-/* ─── VANSH AI ASSISTANT KNOWLEDGE ENGINE & CHATBOT ─── */
-let aiVoiceEnabled = false;
-
-const vanshKnowledge = [
-  {
-    keys: ['who', 'about', 'vansh', 'name', 'developer', 'bio', 'introduce', 'identity'],
-    answer: "Hi! I'm Vansh's AI Assistant. Vansh Sharma is a 2nd-year B.Tech Computer Science student at PSIT Kanpur (CGPA: 8.9) and a Full-Stack Developer passionate about building high-performance web applications, AI integrations, and SaaS products!"
-  },
-  {
-    keys: ['skill', 'stack', 'technology', 'language', 'python', 'javascript', 'react', 'code', 'tools'],
-    answer: "Vansh's technical arsenal includes:\n• **Languages**: Python, JavaScript, TypeScript, C/C++, SQL, HTML5, CSS3\n• **Frameworks**: React, Node.js, Flask, Tailwind CSS, Vite\n• **Cloud & Tools**: Firebase FCM, GCP, Git/GitHub, Cloudflare Workers, Groq AI"
-  },
-  {
-    keys: ['project', 'quest', 'campusconfessions', 'gitgrind', 'portfolio generator', 'utilityx', 'hospital', 'built', 'work', 'app'],
-    answer: "Vansh has architected and shipped awesome projects:\n1. 🌟 **CampusConfessions**: Anonymous social platform with real-time push notifications, voice posts & AI moderation (Live at campusconfessions.in).\n2. 📈 **GitGrind**: Developer habit tracker & GitHub activity visualizer.\n3. 🤖 **Portfolio Generator**: AI-powered SaaS generating instant portfolios.\n4. 🛠️ **UtilityX**: High-performance browser tool suite.\n5. 🏥 **Hospital Management System**: OOP & Relational Database architecture."
-  },
-  {
-    keys: ['education', 'college', 'psit', 'cgpa', 'degree', 'study', 'university', 'btech', 'score'],
-    answer: "Vansh is currently pursuing his B.Tech in Computer Science & Engineering at PSIT Kanpur (Pranveer Singh Institute of Technology) with an impressive CGPA of 8.9!"
-  },
-  {
-    keys: ['contact', 'email', 'hire', 'available', 'job', 'internship', 'phone', 'message', 'reach', 'linkedin', 'github'],
-    answer: "Vansh is actively seeking software engineering internships and freelance opportunities! You can reach him at:\n• 📧 Email: vansharmaweb@gmail.com\n• 📞 Phone: +91 86012 57128\n• 💼 LinkedIn: linkedin.com/in/vansharmaweb\n• 💻 GitHub: github.com/vansharmaweb\nOr use the Direct Send Message form below!"
-  },
-  {
-    keys: ['resume', 'cv', 'download'],
-    answer: "You can view and download Vansh's full Resume PDF right here on the portfolio by clicking the 'Resume' button in the navigation header or in the contact section!"
-  },
-  {
-    keys: ['hi', 'hello', 'hey', 'greetings', 'sup'],
-    answer: "Hello there! 👋 I am Vansh's Digital AI Assistant. Ask me anything about Vansh's skills, projects, background, or how to get in touch with him!"
-  }
-];
-
-function getAIResponse(input) {
-  const q = input.toLowerCase().trim();
-
-  for (const item of vanshKnowledge) {
-    if (item.keys.some(k => q.includes(k))) {
-      return item.answer;
-    }
-  }
-
-  return "That's an interesting question! While I am Vansh's client-side digital avatar, Vansh would love to discuss this with you directly. Feel free to use the Direct Message form below or email him at vansharmaweb@gmail.com!";
-}
-
-function toggleAIChat() {
-  const win = document.getElementById('ai-chat-window');
-  const isOpen = win.classList.toggle('open');
-
-  if (isOpen) {
-    const msgs = document.getElementById('ai-chat-messages');
-    if (msgs.children.length === 0) {
-      appendAIMessage("bot", "Hi! 👋 I'm Vansh's AI Assistant. How can I help you today? Feel free to click any suggestion below or type your question!");
-    }
-    setTimeout(() => document.getElementById('ai-input').focus(), 300);
-  }
-}
-
-function toggleAIVoice() {
-  aiVoiceEnabled = !aiVoiceEnabled;
-  const btn = document.getElementById('ai-voice-toggle');
-  btn.classList.toggle('active', aiVoiceEnabled);
-  btn.title = aiVoiceEnabled ? 'Voice Output Enabled (Click to disable)' : 'Voice Output Disabled (Click to enable)';
-
-  if (aiVoiceEnabled && 'speechSynthesis' in window) {
-    const utter = new SpeechSynthesisUtterance("Voice output activated.");
-    utter.rate = 1.0;
-    window.speechSynthesis.speak(utter);
-  }
-}
-
-function clearAIChat() {
-  const msgs = document.getElementById('ai-chat-messages');
-  msgs.innerHTML = '';
-  appendAIMessage("bot", "Conversation reset! How can I assist you now?");
-}
-
-function askAIChip(question) {
-  document.getElementById('ai-input').value = question;
-  handleAISubmit(new Event('submit'));
-}
-
-function handleAISubmit(e) {
-  if (e) e.preventDefault();
-  const inputEl = document.getElementById('ai-input');
-  const text = inputEl.value.trim();
-  if (!text) return;
-
-  appendAIMessage("user", text);
-  inputEl.value = '';
-
-  // Show typing indicator
-  const msgsContainer = document.getElementById('ai-chat-messages');
-  const typingEl = document.createElement('div');
-  typingEl.className = 'ai-msg bot';
-  typingEl.id = 'ai-typing-active';
-  typingEl.innerHTML = `
-    <div class="ai-avatar" style="width:30px;height:30px;font-size:0.8rem;">VS</div>
-    <div class="ai-msg-bubble">
-      <div class="ai-typing-indicator"><span></span><span></span><span></span></div>
-    </div>
-  `;
-  msgsContainer.appendChild(typingEl);
-  msgsContainer.scrollTop = msgsContainer.scrollHeight;
-
-  setTimeout(() => {
-    const activeTyping = document.getElementById('ai-typing-active');
-    if (activeTyping) activeTyping.remove();
-
-    const response = getAIResponse(text);
-    appendAIMessage("bot", response);
-
-    if (aiVoiceEnabled && 'speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const cleanText = response.replace(/[*•#]/g, '');
-      const utter = new SpeechSynthesisUtterance(cleanText);
-      utter.rate = 1.0;
-      window.speechSynthesis.speak(utter);
-    }
-  }, 600);
-}
-
-function appendAIMessage(sender, text) {
-  const msgsContainer = document.getElementById('ai-chat-messages');
-  const msgEl = document.createElement('div');
-  msgEl.className = `ai-msg ${sender}`;
-
-  const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-  // Convert markdown bold and lists
-  let formattedText = text
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\n/g, '<br/>');
-
-  if (sender === 'bot') {
-    msgEl.innerHTML = `
-      <div class="ai-avatar" style="width:32px;height:32px;font-size:0.85rem;flex-shrink:0;">VS</div>
-      <div>
-        <div class="ai-msg-bubble">${formattedText}</div>
-        <span class="ai-time">${timeStr}</span>
-      </div>
-    `;
-  } else {
-    msgEl.innerHTML = `
-      <div>
-        <div class="ai-msg-bubble">${formattedText}</div>
-        <span class="ai-time">${timeStr}</span>
-      </div>
-    `;
-  }
-
-  msgsContainer.appendChild(msgEl);
-  msgsContainer.scrollTop = msgsContainer.scrollHeight;
-}
 </script>
 
 <!-- AI AGENT FLOATING CHATBOT WIDGET -->
@@ -1752,10 +1598,13 @@ function appendAIMessage(sender, text) {
       <div class="ai-avatar">VS</div>
       <div>
         <div class="ai-title">Vansh AI Assistant</div>
-        <div class="ai-sub"><span style="display:inline-block;width:6px;height:6px;background:var(--green);border-radius:50%;"></span> Digital Avatar Online</div>
+        <div class="ai-sub"><span style="display:inline-block;width:6px;height:6px;background:var(--green);border-radius:50%;"></span> Powered by Groq LLaMA-3</div>
       </div>
     </div>
     <div class="ai-controls">
+      <button class="ai-btn-icon" id="ai-key-toggle" onclick="toggleAIKeyPanel()" title="Configure Groq API Key">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
       <button class="ai-btn-icon" id="ai-voice-toggle" onclick="toggleAIVoice()" title="Toggle Voice Output (Speech)">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
       </button>
@@ -1766,6 +1615,15 @@ function appendAIMessage(sender, text) {
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
+  </div>
+
+  <div id="ai-key-panel" style="display:none; padding:0.8rem 1rem; background:rgba(10,17,40,0.95); border-bottom:1px solid var(--border); transition:all 0.3s ease;">
+    <div style="font-family:var(--mono); font-size:0.7rem; color:var(--gold); margin-bottom:0.4rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em;">Groq API Key Configuration</div>
+    <div style="display:flex; gap:6px;">
+      <input type="password" id="groq-key-input" placeholder="Paste Groq Key (gsk_...)" style="flex:1; background:rgba(5,10,21,0.8); border:1px solid var(--border); border-radius:6px; padding:0.4rem 0.8rem; color:#fff; font-family:var(--mono); font-size:0.75rem; outline:none;" />
+      <button type="button" onclick="saveGroqKey()" style="padding:0.4rem 0.8rem; background:var(--gold); color:var(--bg); border:none; border-radius:6px; font-family:var(--mono); font-size:0.7rem; font-weight:700; cursor:pointer;">Save Key</button>
+    </div>
+    <div id="groq-key-status" style="font-family:var(--mono); font-size:0.65rem; color:var(--text2); margin-top:0.4rem;">Key is read from env.js or browser local storage</div>
   </div>
 
   <div class="ai-messages" id="ai-chat-messages"></div>
@@ -1788,51 +1646,137 @@ function appendAIMessage(sender, text) {
 </div>
 
 <script>
-/* ─── VANSH AI ASSISTANT KNOWLEDGE ENGINE & CHATBOT ─── */
+/* ─── VANSH PERSONAL GROQ AI ENGINE ─── */
 let aiVoiceEnabled = false;
+let aiConversationHistory = [];
 
-const vanshKnowledge = [
-  {
-    keys: ['who', 'about', 'vansh', 'name', 'developer', 'bio', 'introduce', 'identity', 'you', 'yourself'],
-    answer: "Hi! I'm Vansh's AI Assistant. Vansh Sharma is a 2nd-year B.Tech Computer Science student at PSIT Kanpur (CGPA: 8.9) and a Full-Stack Developer passionate about building high-performance web applications, AI integrations, and SaaS products!"
-  },
-  {
-    keys: ['skill', 'stack', 'technology', 'language', 'python', 'javascript', 'js', 'ts', 'typescript', 'react', 'code', 'coding', 'tools', 'c++', 'sql', 'flask', 'node', 'database'],
-    answer: "Vansh's technical arsenal includes:\n• **Languages**: Python, JavaScript, TypeScript, C/C++, SQL, HTML5, CSS3\n• **Frameworks**: React, Node.js, Flask, Tailwind CSS, Vite\n• **Cloud & Tools**: Firebase FCM, GCP, Git/GitHub, Cloudflare Workers, Groq AI"
-  },
-  {
-    keys: ['project', 'quest', 'campusconfessions', 'gitgrind', 'portfolio', 'generator', 'utilityx', 'hospital', 'built', 'work', 'app', 'system', 'apps', 'software'],
-    answer: "Vansh has architected and shipped awesome projects:\n1. 🌟 **CampusConfessions**: Anonymous social platform with real-time push notifications, voice posts & AI moderation (Live at campusconfessions.in).\n2. 📈 **GitGrind**: Developer habit tracker & GitHub activity visualizer.\n3. 🤖 **Portfolio Generator**: AI-powered SaaS generating instant portfolios.\n4. 🛠️ **UtilityX**: High-performance browser tool suite.\n5. 🏥 **Hospital Management System**: OOP & Relational Database architecture."
-  },
-  {
-    keys: ['education', 'college', 'psit', 'kanpur', 'cgpa', 'degree', 'study', 'university', 'btech', 'score', 'school', 'marks', 'academic'],
-    answer: "Vansh is currently pursuing his B.Tech in Computer Science & Engineering at PSIT Kanpur (Pranveer Singh Institute of Technology) with an impressive CGPA of 8.9!"
-  },
-  {
-    keys: ['contact', 'email', 'hire', 'available', 'job', 'internship', 'phone', 'message', 'reach', 'linkedin', 'github', 'social', 'number', 'mail', 'connect', 'talk', 'chat'],
-    answer: "Vansh is actively seeking software engineering internships and freelance opportunities! You can reach him at:\n• 📧 Email: vansharmaweb@gmail.com\n• 📞 Phone: +91 86012 57128\n• 💼 LinkedIn: linkedin.com/in/vansharmaweb\n• 💻 GitHub: github.com/vansharmaweb\nOr use the Direct Send Message form below!"
-  },
-  {
-    keys: ['resume', 'cv', 'download', 'pdf'],
-    answer: "You can view and download Vansh's full Resume PDF right here on the portfolio by clicking the 'Resume' button in the navigation header or in the contact section!"
-  },
-  {
-    keys: ['hi', 'hello', 'hey', 'greetings', 'sup', 'hola', 'namaste', 'good'],
-    answer: "Hello there! 👋 I am Vansh's Digital AI Assistant. Ask me anything about Vansh's skills, projects, background, or how to get in touch with him!"
+const VANSH_SYSTEM_PROMPT = `You are Vansh AI, the official personal AI digital avatar for Vansh Sharma on his portfolio website.
+Answer questions on Vansh's behalf in a warm, intelligent, enthusiastic developer voice.
+
+ABOUT VANSH SHARMA:
+- Full Name: Vansh Sharma
+- Status: 2nd-Year B.Tech Computer Science & Engineering student at PSIT Kanpur (Pranveer Singh Institute of Technology).
+- Academic Record: Exceptional CGPA of 8.86 / 10.
+- Role & Passion: Full-Stack Developer, Software Engineer, SaaS Innovator building production software.
+- Primary Stack: Python, JavaScript (ES6+), TypeScript, React, Node.js, Flask, Tailwind CSS, Vite, SQL, MySQL, Firebase (FCM, Auth), GCP, Cloudflare Workers, Groq AI.
+- Featured Projects:
+  1. CampusConfessions (Live at campusconfessions.in): Anonymous social app with real-time push notifications, AI moderation, voice posts, polls, admin dashboard. Built with Flask, MySQL, Firebase FCM.
+  2. GitGrind (Active / In Progress): Developer habit tracker & streak visualizer ("Duolingo for coding consistency").
+  3. Portfolio Generator (Completed SaaS): Generates styled, ready-to-deploy portfolios in seconds.
+  4. UtilityX (Completed): In-browser developer utility suite.
+  5. Hospital Management System: OOP & Relational Database architecture.
+- Availability: Actively seeking Summer 2026 Software Engineering Internships, Full-Stack roles, open-source projects, and freelance work.
+- Contact: Email (vansharmaweb@gmail.com), Phone (+91 86012 57128), LinkedIn (linkedin.com/in/vansharmaweb), GitHub (github.com/vansharmaweb).
+
+RESPONSE RULES:
+- Always answer naturally as Vansh's personal AI avatar ("I'm Vansh's AI assistant...").
+- Keep answers informative, concise, and structured with bold text or bullets where helpful.
+- If visitors ask how to hire or get in touch, direct them to the Direct Send Message form on the site or email vansharmaweb@gmail.com.`;
+
+function getGroqApiKey() {
+  if (window.GROQ_API_KEY && window.GROQ_API_KEY.startsWith("gsk_") && window.GROQ_API_KEY !== "gsk_your_groq_api_key_here") {
+    return window.GROQ_API_KEY;
   }
-];
+  const localKey = localStorage.getItem('groq_api_key');
+  if (localKey && localKey.startsWith("gsk_")) {
+    return localKey;
+  }
+  return null;
+}
 
-function getAIResponse(input) {
-  if (!input) return "Please ask me a question about Vansh!";
-  const q = input.toLowerCase().trim();
+function toggleAIKeyPanel() {
+  const panel = document.getElementById('ai-key-panel');
+  if (!panel) return;
+  const isHidden = panel.style.display === 'none';
+  panel.style.display = isHidden ? 'block' : 'none';
 
-  for (const item of vanshKnowledge) {
-    if (item.keys.some(k => q.includes(k))) {
-      return item.answer;
+  if (isHidden) {
+    const input = document.getElementById('groq-key-input');
+    const existingKey = getGroqApiKey();
+    if (existingKey && input) {
+      input.value = existingKey;
     }
   }
+}
 
-  return "That's a great question! I am Vansh's digital AI avatar. Vansh is a Full-Stack Developer & CS student at PSIT Kanpur. You can ask me about his skills, projects, education, or contact info—or reach out to him directly via the message section below or email at vansharmaweb@gmail.com!";
+function saveGroqKey() {
+  const input = document.getElementById('groq-key-input');
+  const status = document.getElementById('groq-key-status');
+  if (!input) return;
+  const key = input.value.trim();
+
+  if (key.startsWith("gsk_")) {
+    localStorage.setItem('groq_api_key', key);
+    window.GROQ_API_KEY = key;
+    status.style.color = 'var(--green)';
+    status.textContent = '✨ Groq API Key saved successfully!';
+    setTimeout(() => toggleAIKeyPanel(), 1500);
+  } else {
+    status.style.color = 'var(--red)';
+    status.textContent = '⚠️ Please enter a valid Groq key starting with gsk_';
+  }
+}
+
+async function fetchGroqAIResponse(userText) {
+  const apiKey = getGroqApiKey();
+
+  if (!apiKey) {
+    return "🔑 **Groq API Key Required**\n\nTo power my AI brain with **Groq LLaMA-3.3**, please set your Groq API Key:\n\n1. Open `env.js` and paste your key (`window.GROQ_API_KEY = 'gsk_...';`), OR\n2. Click the ⚙️ Key icon in the chat header above and paste your `gsk_...` key!";
+  }
+
+  aiConversationHistory.push({ role: 'user', content: userText });
+  const recentHistory = aiConversationHistory.slice(-10);
+
+  const payload = {
+    model: "llama-3.3-70b-versatile",
+    messages: [
+      { role: "system", content: VANSH_SYSTEM_PROMPT },
+      ...recentHistory
+    ],
+    temperature: 0.7,
+    max_tokens: 600
+  };
+
+  try {
+    const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${apiKey.trim()}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) {
+      const errData = await res.json().catch(() => ({}));
+      console.error("Groq API error:", errData);
+      
+      // Fallback model retry if llama-3.3 is busy
+      if (payload.model !== "llama3-8b-8192") {
+        payload.model = "llama3-8b-8192";
+        const retryRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+          method: "POST",
+          headers: { "Authorization": `Bearer ${apiKey.trim()}`, "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        if (retryRes.ok) {
+          const retryData = await retryRes.json();
+          const reply = retryData.choices[0].message.content;
+          aiConversationHistory.push({ role: 'assistant', content: reply });
+          return reply;
+        }
+      }
+      throw new Error(errData.error?.message || `API error ${res.status}`);
+    }
+
+    const data = await res.json();
+    const reply = data.choices[0].message.content;
+    aiConversationHistory.push({ role: 'assistant', content: reply });
+    return reply;
+  } catch (err) {
+    console.error("Groq API Error:", err);
+    return `⚠️ **Groq API Error**: ${err.message || 'Could not connect to Groq'}. Click the ⚙️ icon above to verify your Groq API key!`;
+  }
 }
 
 function toggleAIChat() {
@@ -1843,7 +1787,7 @@ function toggleAIChat() {
   if (isOpen) {
     const msgs = document.getElementById('ai-chat-messages');
     if (msgs && msgs.children.length === 0) {
-      appendAIMessage("bot", "Hi! 👋 I'm Vansh's AI Assistant. How can I help you today? Feel free to click any suggestion below or type your question!");
+      appendAIMessage("bot", "Hi! 👋 I'm Vansh's Groq-powered AI Assistant. How can I help you today?");
     }
     setTimeout(() => {
       const inputEl = document.getElementById('ai-input');
@@ -1857,7 +1801,7 @@ function toggleAIVoice() {
   const btn = document.getElementById('ai-voice-toggle');
   if (btn) {
     btn.classList.toggle('active', aiVoiceEnabled);
-    btn.title = aiVoiceEnabled ? 'Voice Output Enabled (Click to disable)' : 'Voice Output Disabled (Click to enable)';
+    btn.title = aiVoiceEnabled ? 'Voice Output Enabled' : 'Voice Output Disabled';
   }
 
   if (aiVoiceEnabled && 'speechSynthesis' in window) {
@@ -1870,6 +1814,7 @@ function toggleAIVoice() {
 function clearAIChat() {
   const msgs = document.getElementById('ai-chat-messages');
   if (msgs) msgs.innerHTML = '';
+  aiConversationHistory = [];
   appendAIMessage("bot", "Conversation reset! How can I assist you now?");
 }
 
@@ -1881,24 +1826,43 @@ function askAIChip(question) {
   }
 }
 
-function handleAISubmit(e) {
+async function handleAISubmit(e) {
   if (e && e.preventDefault) e.preventDefault();
   const inputEl = document.getElementById('ai-input');
   if (!inputEl) return;
   const text = inputEl.value.trim();
   if (!text) return;
 
-  // 1. Append user message
+  // 1. Render user message
   appendAIMessage("user", text);
   inputEl.value = '';
 
-  // 2. Generate response immediately
-  const response = getAIResponse(text);
+  // 2. Render typing indicator
+  const msgsContainer = document.getElementById('ai-chat-messages');
+  if (!msgsContainer) return;
 
-  // 3. Append bot message immediately
+  const typingEl = document.createElement('div');
+  typingEl.className = 'ai-msg bot';
+  typingEl.id = 'ai-typing-active';
+  typingEl.innerHTML = `
+    <div class="ai-avatar" style="width:30px;height:30px;font-size:0.8rem;flex-shrink:0;">VS</div>
+    <div class="ai-msg-bubble">
+      <div class="ai-typing-indicator"><span></span><span></span><span></span></div>
+    </div>
+  `;
+  msgsContainer.appendChild(typingEl);
+  msgsContainer.scrollTop = msgsContainer.scrollHeight;
+
+  // 3. Fetch AI response from Groq API
+  const response = await fetchGroqAIResponse(text);
+
+  // 4. Remove typing indicator & render response
+  const activeTyping = document.getElementById('ai-typing-active');
+  if (activeTyping) activeTyping.remove();
+
   appendAIMessage("bot", response);
 
-  // 4. Voice output if enabled
+  // 5. Speech output if enabled
   if (aiVoiceEnabled && 'speechSynthesis' in window) {
     try {
       window.speechSynthesis.cancel();
@@ -1921,7 +1885,6 @@ function appendAIMessage(sender, text) {
 
   const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-  // Convert markdown bold and linebreaks
   let formattedText = text
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
     .replace(/\n/g, '<br/>');
