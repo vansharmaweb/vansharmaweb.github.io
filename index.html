@@ -1539,25 +1539,33 @@ async function handleDirectMessageSubmit(e) {
   const visitorValEl = document.getElementById('visitor-count-val');
   if (!visitorValEl) return;
 
-  const getUrl = 'https://api.counterapi.dev/v1/vansharmaweb/visitors';
-  const upUrl = 'https://api.counterapi.dev/v1/vansharmaweb/visitors/up';
+  // Trailing slashes required by CounterAPI to avoid HTTP 301 CORS redirects
+  const upUrl = 'https://api.counterapi.dev/v1/vansharmaweb/visitors/up/';
+  const getUrl = 'https://api.counterapi.dev/v1/vansharmaweb/visitors/';
 
   let hasVisited = sessionStorage.getItem('portfolio_visited') === 'true';
 
   async function updateVisitorCount() {
     try {
-      const url = hasVisited ? getUrl : upUrl;
-      const res = await fetch(url);
-      if (!res.ok) throw new Error('Counter API error');
+      const targetUrl = hasVisited ? getUrl : upUrl;
+      const res = await fetch(targetUrl, { mode: 'cors' });
+      if (!res.ok) throw new Error(`Counter API error: ${res.status}`);
       const data = await res.json();
       sessionStorage.setItem('portfolio_visited', 'true');
-      const count = data.count || 1284;
-      animateCounter(visitorValEl, count);
+      
+      const rawCount = (typeof data.count === 'number') ? data.count : 1;
+      const totalCount = 1280 + rawCount;
+      localStorage.setItem('cached_visitor_count', totalCount);
+      animateCounter(visitorValEl, totalCount);
     } catch (err) {
-      console.warn('Visitor counter fallback:', err);
-      // Fallback display
-      const baseCount = 1280 + (Math.floor(Date.now() / 86400000) % 500);
-      visitorValEl.textContent = baseCount.toLocaleString();
+      console.warn('Visitor counter API fallback:', err);
+      let localCount = parseInt(localStorage.getItem('cached_visitor_count') || '1284', 10);
+      if (!hasVisited) {
+        localCount += 1;
+        localStorage.setItem('cached_visitor_count', localCount);
+        sessionStorage.setItem('portfolio_visited', 'true');
+      }
+      visitorValEl.textContent = localCount.toLocaleString();
     }
   }
 
