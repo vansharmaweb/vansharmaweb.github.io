@@ -1384,7 +1384,7 @@
     <div class="foot-right">
       <div id="visitor-counter-badge" class="visitor-badge">
         <span class="v-icon">👁️</span>
-        <span>Total Visitors: <strong id="visitor-count-val">1,284</strong></span>
+        <span>Total Visitors: <strong id="visitor-count-val">1,306</strong></span>
       </div>
     </div>
   </div>
@@ -1510,7 +1510,7 @@ document.querySelectorAll('.rev,.revl,.revr').forEach(el=>revObs.observe(el));
   // Fetch initial count
   async function fetchCount() {
     try {
-      const response = await fetch(getUrl);
+      const response = await fetch(`${getUrl}?_t=${Date.now()}`, { cache: 'no-store' });
       if (!response.ok) throw new Error('API error');
       const data = await response.json();
       currentCount = typeof data.value === 'number' ? data.value : (data.count || 43);
@@ -1733,51 +1733,56 @@ async function handleDirectMessageSubmit(e) {
   if (!visitorValEl) return;
 
   const hitUrl = 'https://countapi.mileshilliard.com/api/v1/hit/vansharma_portfolio_visitors';
-  const getUrl = 'https://countapi.mileshilliard.com/api/v1/get/vansharma_portfolio_visitors';
-
-  let hasVisited = sessionStorage.getItem('portfolio_visited') === 'true';
 
   async function updateVisitorCount() {
-    let currentCached = parseInt(localStorage.getItem('cached_visitor_count') || '1284', 10);
+    // 1. Immediately display cached visitor count
+    let cached = parseInt(localStorage.getItem('cached_visitor_count') || '1306', 10);
+    if (!isNaN(cached) && cached > 0) {
+      visitorValEl.textContent = cached.toLocaleString();
+    }
 
     try {
-      const targetUrl = hasVisited ? getUrl : hitUrl;
-      const res = await fetch(targetUrl, { mode: 'cors' });
+      // 2. Always hit the counter with cache-busting timestamp so browser never returns stale cache
+      const res = await fetch(`${hitUrl}?_t=${Date.now()}`, {
+        cache: 'no-store',
+        mode: 'cors',
+        headers: { 'Accept': 'application/json' }
+      });
       if (!res.ok) throw new Error(`Counter API error: ${res.status}`);
       
       const data = await res.json();
-      sessionStorage.setItem('portfolio_visited', 'true');
-      
       const remoteCount = (typeof data.value === 'number' && !isNaN(data.value))
         ? data.value
-        : ((typeof data.count === 'number' && !isNaN(data.count)) ? data.count : currentCached);
+        : ((typeof data.count === 'number' && !isNaN(data.count)) ? data.count : cached + 1);
 
-      // Ensure monotonically increasing counter value, baseline minimum 1284
-      let finalCount = Math.max(1284, remoteCount, currentCached);
-      localStorage.setItem('cached_visitor_count', finalCount);
-      animateCounter(visitorValEl, finalCount);
+      localStorage.setItem('cached_visitor_count', remoteCount);
+      animateCounter(visitorValEl, cached, remoteCount);
     } catch (err) {
       console.warn('Visitor counter API fallback:', err);
-      let localCount = Math.max(1284, currentCached);
-      if (!hasVisited) {
-        localCount += 1;
-        sessionStorage.setItem('portfolio_visited', 'true');
-      }
-      localStorage.setItem('cached_visitor_count', localCount);
-      animateCounter(visitorValEl, localCount);
+      let nextCount = (cached || 1306) + 1;
+      localStorage.setItem('cached_visitor_count', nextCount);
+      animateCounter(visitorValEl, cached, nextCount);
     }
   }
 
-  function animateCounter(el, target) {
-    let start = Math.max(0, target - 30);
-    const duration = 1000;
+  function animateCounter(el, fromVal, targetVal) {
+    if (fromVal === targetVal) {
+      el.textContent = targetVal.toLocaleString();
+      return;
+    }
+    const start = Math.min(fromVal, targetVal);
+    const duration = 800;
     const startTime = performance.now();
 
     function step(currentTime) {
       const progress = Math.min((currentTime - startTime) / duration, 1);
-      const current = Math.floor(start + progress * (target - start));
+      const current = Math.floor(start + progress * (targetVal - start));
       el.textContent = current.toLocaleString();
-      if (progress < 1) requestAnimationFrame(step);
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = targetVal.toLocaleString();
+      }
     }
     requestAnimationFrame(step);
   }
