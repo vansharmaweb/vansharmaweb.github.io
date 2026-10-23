@@ -4,3 +4,15 @@ env.js
 config.js
 *.env
 *.local
+scratch/
+
+# Temporary files and backups
+*.backup.html
+index.tania.html
+PROFILE_README.md
+blog/
+css/
+js/
+me/
+projects/
+shelves/

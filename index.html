@@ -741,7 +741,164 @@
     }
     .ai-send-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--gold-glow); }
     .ai-send-btn svg { width: 18px; height: 18px; stroke-width: 2.5; }
-  </style>
+  
+    /* ─── MOBILE HAMBURGER & DRAWER NAVIGATION ─── */
+    .mobile-menu-btn {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      margin-left: 0.5rem;
+    }
+    .mobile-menu-btn:hover {
+      background: var(--gold-dim);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+    
+    .mobile-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 300px;
+      max-width: 85vw;
+      background: rgba(5, 10, 21, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-left: 1px solid var(--border);
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: -15px 0 35px rgba(0, 0, 0, 0.6);
+      overflow-y: auto;
+    }
+    .mobile-drawer.open {
+      transform: translateX(0);
+    }
+    
+    .mobile-drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-drawer-close {
+      background: transparent;
+      border: none;
+      color: var(--text2);
+      font-size: 1.75rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px;
+    }
+    .mobile-drawer-close:hover {
+      color: var(--gold);
+    }
+    
+    .mobile-status-container {
+      margin-bottom: 1.5rem;
+    }
+    
+    .mobile-nav-links {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 2rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .mobile-nav-links a {
+      font-family: var(--mono);
+      font-size: 0.95rem;
+      color: var(--text);
+      text-decoration: none;
+      padding: 0.6rem 0.85rem;
+      border-radius: 8px;
+      display: block;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+    .mobile-nav-links a:hover {
+      background: var(--gold-dim);
+      color: var(--gold);
+      border-color: var(--border2);
+      padding-left: 1.25rem;
+    }
+    
+    .mobile-drawer-actions {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+    
+    .mobile-drawer-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 1999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .mobile-drawer-backdrop.open {
+      display: block;
+      opacity: 1;
+    }
+
+    /* ─── ENHANCED RESPONSIVE MEDIA QUERIES ─── */
+    @media(max-width: 900px) {
+      .nav-btn.outline, .nav-btn:not(.outline) {
+        display: none;
+      }
+      .mobile-menu-btn {
+        display: inline-flex;
+      }
+    }
+
+    @media(max-width: 640px) {
+      .status-badge {
+        display: none;
+      }
+      .hero-title {
+        font-size: clamp(2.5rem, 11vw, 4.2rem) !important;
+      }
+      .section-title {
+        font-size: clamp(2rem, 7vw, 2.75rem) !important;
+      }
+      .section {
+        padding: 5rem 5vw !important;
+      }
+      #hero {
+        padding: 6.5rem 5vw 4rem !important;
+      }
+      #ai-chat-window {
+        right: 1rem !important;
+        left: 1rem !important;
+        width: auto !important;
+        max-width: none !important;
+        bottom: 5rem !important;
+        height: 70vh !important;
+      }
+    }
+
+</style>
 </head>
 <body>
 
@@ -779,8 +936,45 @@
     </div>
     <a href="Vansh-Sharma.pdf" target="_blank" class="nav-btn outline">Resume</a>
     <a href="mailto:vansharmaweb@gmail.com" class="nav-btn">Hire Me</a>
+      <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
   </div>
 </nav>
+
+  <!-- Mobile Slide-Out Drawer -->
+  <div id="mobile-drawer" class="mobile-drawer">
+    <div class="mobile-drawer-header">
+      <a class="nav-logo" href="#hero" style="font-size: 1rem;">
+        <div class="nav-crest">VS</div>
+        <span>Vansh Sharma</span>
+      </a>
+      <button id="mobile-drawer-close" class="mobile-drawer-close" aria-label="Close menu">&times;</button>
+    </div>
+    <div class="mobile-status-container">
+      <div class="status-badge" style="display:inline-flex;">
+        <span class="status-pulse"></span>
+        <span>Available for Internships</span>
+      </div>
+    </div>
+    <ul class="mobile-nav-links">
+      <li><a href="#about" class="mobile-nav-item">01 // About</a></li>
+      <li><a href="#skills" class="mobile-nav-item">02 // Skills</a></li>
+      <li><a href="#quests" class="mobile-nav-item">03 // Projects</a></li>
+      <li><a href="#support" class="mobile-nav-item">04 // Support</a></li>
+      <li><a href="#contact" class="mobile-nav-item">05 // Contact</a></li>
+    </ul>
+    <div class="mobile-drawer-actions">
+      <a class="nav-btn outline" href="Vansh-Sharma.pdf" target="_blank" style="text-align:center; justify-content:center; display:flex;">View Resume [PDF] ↗</a>
+      <a class="nav-btn" href="mailto:vansharmaweb@gmail.com" style="text-align:center; justify-content:center; display:flex;">Hire Me / Email ✉</a>
+    </div>
+  </div>
+  <div id="mobile-drawer-backdrop" class="mobile-drawer-backdrop"></div>
+
 
 <!-- HERO -->
 <section id="hero">
@@ -1296,11 +1490,10 @@ document.querySelectorAll('.rev,.revl,.revr').forEach(el=>revObs.observe(el));
   const likeBtn = document.getElementById('like-btn');
   const likesCountEl = document.getElementById('likes-count');
   const statusMsgEl = document.getElementById('likes-status-msg');
-  const namespace = 'vansharmaweb';
-  const key = 'portfolio';
-  const getUrl = `https://api.counterapi.dev/v1/${namespace}/${key}`;
-  const upUrl = `https://api.counterapi.dev/v1/${namespace}/${key}/up`;
-  const downUrl = `https://api.counterapi.dev/v1/${namespace}/${key}/down`;
+  const key = 'vansharma_portfolio_likes';
+  const getUrl = `https://countapi.mileshilliard.com/api/v1/get/${key}`;
+  const hitUrl = `https://countapi.mileshilliard.com/api/v1/hit/${key}`;
+  const setUrl = `https://countapi.mileshilliard.com/api/v1/set/${key}?value=`;
 
   let isLiked = localStorage.getItem('portfolio_liked') === 'true';
   let currentCount = isLiked ? 1 : 0;
@@ -1320,7 +1513,7 @@ document.querySelectorAll('.rev,.revl,.revr').forEach(el=>revObs.observe(el));
       const response = await fetch(getUrl);
       if (!response.ok) throw new Error('API error');
       const data = await response.json();
-      currentCount = data.count || 0;
+      currentCount = typeof data.value === 'number' ? data.value : (data.count || 43);
       updateCountUI(currentCount);
     } catch (err) {
       console.error('Error fetching likes:', err);
@@ -1398,10 +1591,10 @@ document.querySelectorAll('.rev,.revl,.revr').forEach(el=>revObs.observe(el));
       showStatus('Thanks for the support! ❤️');
 
       try {
-        const response = await fetch(upUrl);
+        const response = await fetch(hitUrl, { mode: 'cors' });
         if (!response.ok) throw new Error('API error');
         const data = await response.json();
-        currentCount = data.count;
+        currentCount = typeof data.value === 'number' ? data.value : (data.count || (currentCount + 1));
         updateCountUI(currentCount);
       } catch (err) {
         console.error('Error incrementing likes:', err);
@@ -1415,10 +1608,10 @@ document.querySelectorAll('.rev,.revl,.revr').forEach(el=>revObs.observe(el));
       showStatus('Commendation removed.');
 
       try {
-        const response = await fetch(downUrl);
+        const newCount = Math.max(0, currentCount - 1); const response = await fetch(`${setUrl}${newCount}`, { mode: 'cors' });
         if (!response.ok) throw new Error('API error');
         const data = await response.json();
-        currentCount = data.count;
+        currentCount = typeof data.value === 'number' ? data.value : (data.count || (currentCount + 1));
         updateCountUI(currentCount);
       } catch (err) {
         console.error('Error decrementing likes:', err);
@@ -1539,33 +1732,33 @@ async function handleDirectMessageSubmit(e) {
   const visitorValEl = document.getElementById('visitor-count-val');
   if (!visitorValEl) return;
 
-  const upUrl = 'https://api.counterapi.dev/v1/vansharmaweb/visitors/up/';
-  const getUrl = 'https://api.counterapi.dev/v1/vansharmaweb/visitors/';
+  const hitUrl = 'https://countapi.mileshilliard.com/api/v1/hit/vansharma_portfolio_visitors';
+  const getUrl = 'https://countapi.mileshilliard.com/api/v1/get/vansharma_portfolio_visitors';
 
-  const BASE_OFFSET = 1280;
   let hasVisited = sessionStorage.getItem('portfolio_visited') === 'true';
 
   async function updateVisitorCount() {
-    let currentCached = parseInt(localStorage.getItem('cached_visitor_count') || '1288', 10);
+    let currentCached = parseInt(localStorage.getItem('cached_visitor_count') || '1284', 10);
 
     try {
-      const targetUrl = hasVisited ? getUrl : upUrl;
+      const targetUrl = hasVisited ? getUrl : hitUrl;
       const res = await fetch(targetUrl, { mode: 'cors' });
       if (!res.ok) throw new Error(`Counter API error: ${res.status}`);
       
       const data = await res.json();
       sessionStorage.setItem('portfolio_visited', 'true');
       
-      const rawCount = (typeof data.count === 'number' && !isNaN(data.count)) ? data.count : 1;
-      let calculatedTotal = BASE_OFFSET + rawCount;
+      const remoteCount = (typeof data.value === 'number' && !isNaN(data.value))
+        ? data.value
+        : ((typeof data.count === 'number' && !isNaN(data.count)) ? data.count : currentCached);
 
-      // Ensure monotonically increasing counter value
-      let finalCount = Math.max(calculatedTotal, currentCached + (hasVisited ? 0 : 1));
+      // Ensure monotonically increasing counter value, baseline minimum 1284
+      let finalCount = Math.max(1284, remoteCount, currentCached);
       localStorage.setItem('cached_visitor_count', finalCount);
       animateCounter(visitorValEl, finalCount);
     } catch (err) {
       console.warn('Visitor counter API fallback:', err);
-      let localCount = currentCached;
+      let localCount = Math.max(1284, currentCached);
       if (!hasVisited) {
         localCount += 1;
         sessionStorage.setItem('portfolio_visited', 'true');
@@ -1612,7 +1805,7 @@ async function handleDirectMessageSubmit(e) {
       <div class="ai-avatar">VS</div>
       <div>
         <div class="ai-title">Vansh AI Assistant</div>
-        <div class="ai-sub"><span style="display:inline-block;width:6px;height:6px;background:var(--green);border-radius:50%;"></span> Powered by Groq LLaMA-3</div>
+        <div class="ai-sub"><span style="display:inline-block;width:6px;height:6px;background:var(--green);border-radius:50%;"></span> Powered by Groq AI</div>
       </div>
     </div>
     <div class="ai-controls">
@@ -1698,7 +1891,7 @@ async function fetchGroqAIResponse(userText) {
   aiConversationHistory.push({ role: 'user', content: userText });
   const recentHistory = aiConversationHistory.slice(-10);
 
-  const modelToUse = window.AI_MODEL || "llama-3.3-70b-versatile";
+  const modelToUse = window.AI_MODEL || "qwen/qwen3.8-27b";
   const systemPromptToUse = window.AI_SYSTEM_PROMPT || VANSH_SYSTEM_PROMPT;
 
   const payload = {
@@ -1726,8 +1919,8 @@ async function fetchGroqAIResponse(userText) {
       console.error("Groq API error:", errData);
       
       // Fallback model retry if llama-3.3 is busy
-      if (payload.model !== "llama3-8b-8192") {
-        payload.model = "llama3-8b-8192";
+      if (payload.model !== "openai/gpt-oss-120b") {
+        payload.model = "openai/gpt-oss-120b";
         const retryRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
           method: "POST",
           headers: { "Authorization": `Bearer ${apiKey.trim()}`, "Content-Type": "application/json" },
@@ -1883,6 +2076,35 @@ function appendAIMessage(sender, text) {
   msgsContainer.appendChild(msgEl);
   msgsContainer.scrollTop = msgsContainer.scrollHeight;
 }
+</script>
+<script>
+
+  // ─── MOBILE DRAWER TOGGLE ───
+  const mobileBtn = document.getElementById('mobile-menu-btn');
+  const mobileDrawer = document.getElementById('mobile-drawer');
+  const mobileBackdrop = document.getElementById('mobile-drawer-backdrop');
+  const mobileClose = document.getElementById('mobile-drawer-close');
+
+  function openMobileDrawer() {
+    if (mobileDrawer) mobileDrawer.classList.add('open');
+    if (mobileBackdrop) mobileBackdrop.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMobileDrawer() {
+    if (mobileDrawer) mobileDrawer.classList.remove('open');
+    if (mobileBackdrop) mobileBackdrop.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  if (mobileBtn) mobileBtn.addEventListener('click', openMobileDrawer);
+  if (mobileClose) mobileClose.addEventListener('click', closeMobileDrawer);
+  if (mobileBackdrop) mobileBackdrop.addEventListener('click', closeMobileDrawer);
+
+  document.querySelectorAll('.mobile-nav-item').forEach(link => {
+    link.addEventListener('click', closeMobileDrawer);
+  });
+
 </script>
 </body>
 </html>

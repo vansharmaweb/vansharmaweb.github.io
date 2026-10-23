@@ -1,50 +1,43 @@
 # Vansh Sharma — Portfolio
 
-Personal portfolio website showcasing projects, skills, and contact information.
+Personal portfolio website showcasing full-stack projects, software engineering skills, and interactive Groq AI avatar.
 
-🌐 Live demo: https://vansharmaweb.github.io
-
----
-
-## About
-
-A minimal, responsive portfolio site built with plain HTML5 and CSS3. It highlights projects, showcases skills, and provides an easy way to get in touch.
-
-## Features
-
-- Clean, responsive layout for desktop and mobile
-- Project gallery with links and descriptions
-- Skills section (technologies and tools)
-- Contact information and links to GitHub
-
-## Built with
-
-- HTML5
-- CSS3
-
-## Run locally
-
-1. Clone the repo:
-
-   git clone https://github.com/vansharmaweb/vansharmaweb.github.io.git
-
-2. Open `index.html` in your browser, or serve locally with a static server:
-
-   - Python 3: `python -m http.server 8000`
-   - Node (http-server): `npx http-server -p 8000`
-
-3. Visit http://localhost:8000
-
-## Contributing
-
-PRs and improvements are welcome. If you'd like to suggest changes, open an issue or submit a pull request with a clear description of what you'd like to change.
-
-## Contact
-
-- GitHub: https://github.com/vansharmaweb
-
-If you'd like to add a preferred email or social link, tell me and I can include it here.
+🌐 **Live Website:** [https://vansharma.is-a.dev](https://vansharma.is-a.dev)  
+📄 **Resume:** [Vansh-Sharma.pdf](Vansh-Sharma.pdf)
 
 ---
 
-*Last updated: 2026-06-25*
+## ⚡ Overview
+
+A responsive, high-performance cyberpunk-themed personal portfolio built with modern HTML5, CSS3, and JavaScript.
+
+### Features
+- **Interactive Terminal & Hero:** Live typing banner and developer status indicators.
+- **Projects Showcase:** Real production projects including CampusConfessions, GitGrind, Portfolio Generator, and UtilityX.
+- **Vansh AI Digital Avatar:** Real-time conversational AI powered by Groq.
+- **Live Visitors & Likes Counters:** Real-time metrics powered by CountAPI.
+- **Fully Responsive:** Smooth desktop navigation and mobile drawer menu.
+
+---
+
+## 🚀 Run Locally
+
+Clone the repository and serve with any static server:
+
+```bash
+# Python
+python -m http.server 8000
+
+# Node.js
+npx serve .
+```
+
+Then open `http://localhost:8000`.
+
+---
+
+## 📬 Contact
+
+- **Email:** [vansharmaweb@gmail.com](mailto:vansharmaweb@gmail.com)
+- **LinkedIn:** [linkedin.com/in/vansharmaweb](https://linkedin.com/in/vansharmaweb)
+- **GitHub:** [github.com/vansharmaweb](https://github.com/vansharmaweb)
