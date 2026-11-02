@@ -1243,6 +1243,39 @@
   </div>
 </section>
 
+
+<!-- SUPPORT -->
+<section id="support" class="section">
+  <svg width="0" height="0" style="position: absolute;">
+    <defs>
+      <linearGradient id="heart-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#FF4422" />
+        <stop offset="100%" stop-color="#FF8236" />
+      </linearGradient>
+    </defs>
+  </svg>
+  <div style="display:flex; justify-content:center; width:100%;">
+    <p class="section-eyebrow rev">04 — Support the Quest</p>
+  </div>
+  <h2 class="section-title rev d1" style="text-align: center;">Leave a Heart</h2>
+  <p class="section-sub rev d2" style="text-align: center; margin: 0 auto 3rem;">If you enjoyed exploring my quests and arsenal, show some appreciation by leaving a commendation!</p>
+
+  <div class="glass-card support-card rev d3">
+    <div class="like-button-container">
+      <button class="like-btn" id="like-btn" aria-label="Heart this portfolio">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="likes-counter-wrapper">
+      <span class="likes-count" id="likes-count">—</span>
+      <span class="likes-label">Commendations</span>
+      <span class="likes-status-msg" id="likes-status-msg"></span>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact" class="section" style="text-align: center;">
   <div style="display:flex; justify-content:center; width:100%;">
@@ -1374,7 +1407,7 @@
     <div class="foot-right">
       <div id="visitor-counter-badge" class="visitor-badge">
         <span class="v-icon">👁️</span>
-        <span>Total Visitors: <strong id="visitor-count-val">1,306</strong></span>
+        <span>Total Visitors: <strong id="visitor-count-val">1,316</strong></span>
       </div>
     </div>
   </div>
@@ -1480,6 +1513,7 @@ document.querySelectorAll('.rev,.revl,.revr').forEach(el=>revObs.observe(el));
   const likeBtn = document.getElementById('like-btn');
   const likesCountEl = document.getElementById('likes-count');
   const statusMsgEl = document.getElementById('likes-status-msg');
+  if (!likeBtn || !likesCountEl) return;
   const key = 'vansharma_portfolio_likes';
   const getUrl = `https://countapi.mileshilliard.com/api/v1/get/${key}`;
   const hitUrl = `https://countapi.mileshilliard.com/api/v1/hit/${key}`;
@@ -1519,6 +1553,7 @@ document.querySelectorAll('.rev,.revl,.revr').forEach(el=>revObs.observe(el));
   }
 
   function showStatus(text, duration = 3000) {
+    if (!statusMsgEl) return;
     statusMsgEl.textContent = text;
     statusMsgEl.classList.add('visible');
     clearTimeout(statusMsgEl.timer);
@@ -1717,6 +1752,8 @@ async function handleDirectMessageSubmit(e) {
   }
 }
 
+</script>
+<script>
 /* ─── LIVE VISITORS COUNTER ─── */
 (function initVisitorCounter() {
   const visitorValEl = document.getElementById('visitor-count-val');
@@ -1726,7 +1763,7 @@ async function handleDirectMessageSubmit(e) {
 
   async function updateVisitorCount() {
     // 1. Immediately display cached visitor count
-    let cached = parseInt(localStorage.getItem('cached_visitor_count') || '1306', 10);
+    let cached = parseInt(localStorage.getItem('cached_visitor_count') || '1316', 10);
     if (!isNaN(cached) && cached > 0) {
       visitorValEl.textContent = cached.toLocaleString();
     }
@@ -1749,7 +1786,7 @@ async function handleDirectMessageSubmit(e) {
       animateCounter(visitorValEl, cached, remoteCount);
     } catch (err) {
       console.warn('Visitor counter API fallback:', err);
-      let nextCount = (cached || 1306) + 1;
+      let nextCount = (cached || 1316) + 1;
       localStorage.setItem('cached_visitor_count', nextCount);
       animateCounter(visitorValEl, cached, nextCount);
     }
