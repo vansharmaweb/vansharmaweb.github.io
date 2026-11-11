@@ -1,0 +1,12 @@
+name = "vansh-portfolio-hub"
+main = "src/index.ts"
+compatibility_date = "2025-02-01"
+
+[durable_objects]
+bindings = [
+  { name = "PORTFOLIO_HUB", class_name = "PortfolioHub" }
+]
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["PortfolioHub"]
