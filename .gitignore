@@ -1,3 +1,10 @@
+# Dependencies & build output
+node_modules/
+dist/
+.vite/
+cloudflare-worker/node_modules/
+cloudflare-worker/.wrangler/
+
 # Environment & Secret Files
 .env
 env.js
@@ -10,9 +17,6 @@ scratch/
 *.backup.html
 index.tania.html
 PROFILE_README.md
-blog/
-css/
-js/
-me/
-projects/
-shelves/
+
+# Large unused raw audio sources (runtime uses .mp3)
+static/sounds/musics/*.wav
